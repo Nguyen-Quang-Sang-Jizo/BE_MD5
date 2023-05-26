@@ -62,4 +62,4 @@ class PostControllers {
     }
 }
 exports.default = new PostControllers();
-//# sourceMappingURL=post.controller.js.map
+//# sourceMappingURL=postController.js.map

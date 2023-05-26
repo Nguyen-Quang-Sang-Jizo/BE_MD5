@@ -69,4 +69,4 @@ class UserControllers {
     }
 }
 exports.default = new UserControllers();
-//# sourceMappingURL=user.controllers.js.map
+//# sourceMappingURL=userControllers.js.map

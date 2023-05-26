@@ -53,4 +53,4 @@ class CommentControllers {
     }
 }
 exports.default = new CommentControllers();
-//# sourceMappingURL=comment.controllers.js.map
+//# sourceMappingURL=commentControllers.js.map
