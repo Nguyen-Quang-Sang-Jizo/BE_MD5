@@ -1,5 +1,5 @@
 import {Router} from "express";
-import commentControllers from "../controllers/comment.controllers";
+import commentControllers from "../controllers/commentControllers";
 
 import {deleteComment} from "../middleware/deleteComment";
 
