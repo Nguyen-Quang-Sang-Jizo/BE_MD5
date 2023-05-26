@@ -12,6 +12,11 @@ class UserControllers{
         let listUsers = await this.userService.getUser();
         res.status(200).json(listUsers);
     }
+    getMany = async (req: Request, res: Response) => {
+        console.log("get friends with user Id:", req['decode'].idUser)
+        let listFriend = await this.userService.getFriend(req['decode'].idUser);
+        res.status(200).json(listFriend);
+    }
 
     register = async (req: Request, res: Response) => {
         let listUser = await this.userService.getUser();

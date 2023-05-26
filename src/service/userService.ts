@@ -4,7 +4,7 @@ import {AppDataSource} from "../configs/data-source";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {SECRET} from "../middleware/auth";
-import {Like} from "typeorm";
+import {In, Like} from "typeorm";
 
 class UserService{
     private userRepository;
@@ -86,6 +86,35 @@ class UserService{
             console.log(`Error ${error} on adminSearchUsername in adminUserService`);
             throw error;
         }
+    }
+    getFriend = async (userId) => {
+        let friendships = await AppDataSource.createQueryBuilder()
+            .select("friend")
+            .from(Friend, "friend")
+            .leftJoinAndSelect("friend.friend_One", "one")
+            .leftJoinAndSelect("friend.friend_Two", "two")
+            .where("friend.friend_One = :idOne", {idOne: userId})
+            .orWhere("friend.friend_Two = :idTwo", {idTwo: userId})
+            .getMany()
+        let friends =  friendships.map(item => {
+            if (item.friend_One.id == userId) {
+                return item.friend_Two.id
+            } else {
+                return item.friend_One.id
+            }
+        })
+        return await this.userRepository.find({
+            where: {
+                id: In(friends)
+            }
+        })
+        // return await this.friendRepository.find({
+        //     relations: {
+        //         friend_Two: true,
+        //         friend_One: true
+        //     },
+        //
+        // })
     }
 }
 

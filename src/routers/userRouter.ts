@@ -6,7 +6,8 @@ import {checkRole} from "../middleware/author";
 
 const userRouter = express.Router();
 
-userRouter.get('/', auth, checkRole, userControllers.findUsers)
+userRouter.get('/', auth, userControllers.findUsers)
+userRouter.get('/', auth,userControllers.getMany)
 userRouter.post('/register', userControllers.register);
 userRouter.post('/login', userControllers.login);
 userRouter.get('/:username', userControllers.findIdUser);
