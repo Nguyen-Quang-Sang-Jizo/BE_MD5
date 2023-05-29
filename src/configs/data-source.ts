@@ -18,8 +18,7 @@ const AppDataSource = new DataSource({
     database: "module5",
     synchronize: true,
     logging: false,
-    entities: [User, Category, Comment, Post, Tag, Like, Image],
-    migrations: ["./dist/src/migrations/*.js"],
+    entities: ["./dist/src/models/*.js"],
 });
 
 async function connectDB(){
