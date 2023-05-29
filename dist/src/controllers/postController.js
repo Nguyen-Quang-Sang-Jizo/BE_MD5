@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const postService_1 = __importDefault(require("../service/postService"));
 const categoryService_1 = __importDefault(require("../service/categoryService"));
 const userService_1 = __importDefault(require("../service/userService"));
+const imageService_1 = __importDefault(require("../service/imageService"));
 class PostControllers {
     constructor() {
         this.findAll = async (req, res) => {
@@ -13,7 +14,13 @@ class PostControllers {
             res.status(200).json(listPost);
         };
         this.addPost = async (req, res) => {
-            await this.postService.add(req.body);
+            const author = req["decode"].idUser;
+            let post = req.body;
+            console.log('iduser daqng bai', author);
+            let imageData = JSON.parse(post.image);
+            console.log(imageData);
+            await this.postService.addPostByUser(post, author);
+            await imageService_1.default.addImage(post.id, imageData);
             if (!req.body.title) {
                 res.status(400).json({
                     message: 'title missing'

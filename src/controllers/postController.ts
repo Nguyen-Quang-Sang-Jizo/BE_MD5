@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import postService from "../service/postService";
 import categoryService from "../service/categoryService";
 import userService from "../service/userService";
+import ImageService from "../service/imageService";
 
 
 class PostControllers{
@@ -19,9 +20,15 @@ class PostControllers{
         let listPost = await this.postService.getAll();
             res.status(200).json(listPost);
     }
-
     addPost = async (req: Request, res: Response) => {
-        await this.postService.add(req.body);
+        const author = req["decode"].idUser
+        let post = req.body
+        console.log( 'iduser daqng bai',author)
+        let imageData = JSON.parse(post.image);
+        console.log(imageData)
+        await this.postService.addPostByUser(post, author);
+        await ImageService.addImage(post.id, imageData)
+
         if(!req.body.title){
             res.status(400).json({
                 message: 'title missing'

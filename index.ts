@@ -5,13 +5,12 @@ import { connectDB } from "./src/configs/data-source";
 import router from "./src/routers";
 import * as dotenv from "dotenv";
 import cors from "cors"
+import * as process from "process";
 
-const PORT = 8000;
+const PORT = 3000;
 const app = express();
 
 dotenv.config();
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

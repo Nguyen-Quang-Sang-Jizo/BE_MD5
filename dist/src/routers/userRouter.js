@@ -8,15 +8,17 @@ const userControllers_1 = __importDefault(require("../controllers/userController
 const auth_1 = require("../middleware/auth");
 const author_1 = require("../middleware/author");
 const userRouter = express_1.default.Router();
-userRouter.get('/', userControllers_1.default.findUsers);
-userRouter.get('/', userControllers_1.default.getMany);
+userRouter.get('/', auth_1.auth, userControllers_1.default.findUsers);
+userRouter.get('/', auth_1.auth, userControllers_1.default.getMany);
 userRouter.post('/register', userControllers_1.default.register);
 userRouter.post('/login', userControllers_1.default.login);
-userRouter.get('/:username', userControllers_1.default.findIdUser);
-userRouter.get('/update/:id', userControllers_1.default.findUser);
+userRouter.get('/friends', auth_1.auth, userControllers_1.default.getMany);
+userRouter.get('/:id', userControllers_1.default.findUser);
+userRouter.put('/:id', userControllers_1.default.personalInformation);
 userRouter.delete('/:id', userControllers_1.default.removeUser);
 userRouter.delete('/account/:id', userControllers_1.default.deleteUsers);
-userRouter.put('/:id', userControllers_1.default.personalInformation);
+userRouter.get('/', auth_1.auth, userControllers_1.default.findUsers);
+userRouter.get('/:username', userControllers_1.default.findIdUser);
 userRouter.get('/search/:name', auth_1.auth, author_1.checkRole, userControllers_1.default.searchUsername);
 exports.default = userRouter;
 //# sourceMappingURL=userRouter.js.map

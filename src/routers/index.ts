@@ -4,10 +4,10 @@ import categoryRouter from "./categoryRouter";
 import commentRouter from "./commentRouter";
 
 const router = (app) => {
-    app.use('/auth', userRouter);
-    app.use('/post', postRouter);
-    app.use('/category', categoryRouter);
-    app.use('/comment', commentRouter);
+    app.use('/users', userRouter);
+    app.use('/posts', postRouter);
+    app.use('/categories', categoryRouter);
+    app.use('/comments', commentRouter);
+    // app.use('/friend',friendsRouter)
 };
-
 export default router;
