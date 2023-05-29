@@ -8,6 +8,7 @@ import { Comment } from "../models/Comment";
 import { Like } from "../models/Like";
 import { Image } from "../models/Image";
 
+
 const AppDataSource = new DataSource({
     type: "mysql",
     host: "localhost",

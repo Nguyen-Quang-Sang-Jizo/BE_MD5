@@ -14,7 +14,6 @@ export class Friend {
     @ManyToOne(() => User)
     friend_One: User;
 
-    // @ManyToOne(() => User, (user) => user.friends)
     @ManyToOne(() => User)
     friend_Two: User;
 }
