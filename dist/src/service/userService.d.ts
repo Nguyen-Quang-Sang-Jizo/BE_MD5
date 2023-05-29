@@ -1,6 +1,7 @@
 declare class UserService {
     private userRepository;
     private postRepository;
+    private friendRepository;
     constructor();
     getUser: () => Promise<any>;
     registers: (user: any) => Promise<any>;

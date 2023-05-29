@@ -15,6 +15,7 @@ class UserControllers{
     getMany = async (req: Request, res: Response) => {
         console.log("get friends with user Id:", req['decode'].idUser)
         let listFriend = await this.userService.getFriend(req['decode'].idUser);
+        console.log(listFriend)
         res.status(200).json(listFriend);
     }
 

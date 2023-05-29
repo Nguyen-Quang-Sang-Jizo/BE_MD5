@@ -13,6 +13,7 @@ const typeorm_1 = require("typeorm");
 const Friend_1 = require("../models/Friend");
 class UserService {
     constructor() {
+        this.friendRepository = data_source_1.AppDataSource.getRepository(Friend_1.Friend);
         this.getUser = async () => {
             let user = await this.userRepository.find();
             return user;
@@ -90,6 +91,7 @@ class UserService {
                 .where("friend.friend_One = :idOne", { idOne: userId })
                 .orWhere("friend.friend_Two = :idTwo", { idTwo: userId })
                 .getMany();
+            console.log("friendships:", friendships);
             let friends = friendships.map(item => {
                 if (item.friend_One.id == userId) {
                     return item.friend_Two.id;

@@ -10,6 +10,7 @@ import {Friend} from "../models/Friend";
 class UserService{
     private userRepository;
     private postRepository;
+    private friendRepository = AppDataSource.getRepository(Friend)
 
     constructor() {
         this.userRepository = AppDataSource.getRepository(User);
@@ -89,6 +90,7 @@ class UserService{
         }
     }
     getFriend = async (userId) => {
+        // let friendships = await this.friendRepository.createQueryBuilder("friend")
         let friendships = await AppDataSource.createQueryBuilder()
             .select("friend")
             .from(Friend, "friend")
@@ -97,6 +99,7 @@ class UserService{
             .where("friend.friend_One = :idOne", {idOne: userId})
             .orWhere("friend.friend_Two = :idTwo", {idTwo: userId})
             .getMany()
+        console.log("friendships:", friendships)
         let friends =  friendships.map(item => {
             if (item.friend_One.id == userId) {
                 return item.friend_Two.id

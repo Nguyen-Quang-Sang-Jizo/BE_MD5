@@ -7,7 +7,7 @@ import {checkRole} from "../middleware/author";
 const userRouter = express.Router();
 userRouter.post('/register', userControllers.register);
 userRouter.post('/login', userControllers.login);
-userRouter.get('/friends',auth,userControllers.getMany)
+userRouter.get('/friends', auth, userControllers.getMany)
 userRouter.get('/:id', userControllers.findUser);
 userRouter.put('/:id', userControllers.personalInformation);
 userRouter.delete('/:id', userControllers.removeUser);
