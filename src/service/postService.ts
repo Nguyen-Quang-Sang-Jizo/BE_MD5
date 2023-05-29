@@ -19,7 +19,7 @@ class PostService{
         return posts;
     }
 
-    add = async (post) =>{
+    addByUser = async (post) =>{
         await this.postRepository.save(post);
     }
 

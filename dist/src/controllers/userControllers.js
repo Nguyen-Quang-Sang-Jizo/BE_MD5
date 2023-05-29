@@ -10,6 +10,11 @@ class UserControllers {
             let listUsers = await this.userService.getUser();
             res.status(200).json(listUsers);
         };
+        this.getMany = async (req, res) => {
+            console.log("get friends with user Id:", req['decode'].idUser);
+            let listFriend = await this.userService.getFriend(req['decode'].idUser);
+            res.status(200).json(listFriend);
+        };
         this.register = async (req, res) => {
             let listUser = await this.userService.getUser();
             let list = listUser.map(function (acc) {

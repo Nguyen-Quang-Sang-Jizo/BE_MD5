@@ -3,6 +3,7 @@ declare class UserControllers {
     private userService;
     constructor();
     findUsers: (req: Request, res: Response) => Promise<void>;
+    getMany: (req: Request, res: Response) => Promise<void>;
     register: (req: Request, res: Response) => Promise<void>;
     login: (req: Request, res: Response) => Promise<void>;
     personalInformation: (req: Request, res: Response) => Promise<void>;

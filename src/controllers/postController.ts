@@ -21,7 +21,9 @@ class PostControllers{
     }
 
     addPost = async (req: Request, res: Response) => {
-        await this.postService.add(req.body);
+        const author = req["decode"].idUser
+        console.log( 'iduser daqng bai',author)
+        await this.postService.addByUser(req.body);
         if(!req.body.title){
             res.status(400).json({
                 message: 'title missing'

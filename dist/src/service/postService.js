@@ -15,7 +15,7 @@ class PostService {
             });
             return posts;
         };
-        this.add = async (post) => {
+        this.addByUser = async (post) => {
             await this.postRepository.save(post);
         };
         this.deletePost = async (id) => {
