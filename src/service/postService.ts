@@ -19,10 +19,19 @@ class PostService{
         return posts;
     }
 
-    addByUser = async (post) =>{
-        await this.postRepository.save(post);
+    addPostByUser = async (post, author) =>{
+        //
+        let newPost = {
+            title: post.title,
+            content: post.content,
+            status: post.status,
+            date_created: post.date_created,
+            date_updated: post.date_updated,
+            category: post.category,
+            author: author,
+        }
+        await this.postRepository.save(newPost);
     }
-
     deletePost = async (id) => {
         await this.postRepository.delete(id);
     }

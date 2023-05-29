@@ -26,9 +26,14 @@ class CommentControllers{
             })
         }
     }
+    showAll = async (req: Request, res: Response) => {
+        // let id = req.params.id;
+        let comment = await this.commentService.getAllComment()
+        res.status(200).json(comment)
+    }
     showComment = async (req: Request, res: Response) => {
         let id = req.params.id;
-       let comment = await this.commentService.findByIdComments(id)
+       let comment = await this.commentService.findByIdCommentss(id)
         res.status(200).json(comment)
     }
 

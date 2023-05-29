@@ -22,9 +22,13 @@ class CommentControllers {
                 });
             }
         };
+        this.showAll = async (req, res) => {
+            let comment = await this.commentService.getAllComment();
+            res.status(200).json(comment);
+        };
         this.showComment = async (req, res) => {
             let id = req.params.id;
-            let comment = await this.commentService.findByIdComments(id);
+            let comment = await this.commentService.findByIdCommentss(id);
             res.status(200).json(comment);
         };
         this.removeComment = async (req, res) => {

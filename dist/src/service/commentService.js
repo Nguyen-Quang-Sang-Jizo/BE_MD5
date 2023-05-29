@@ -15,7 +15,7 @@ class CommentService {
             let comment = await this.commentRepository.find({ where: { post: { id: id } },
                 relations: {
                     post: true,
-                    authors: true
+                    user: true
                 }
             });
             return (comment);
