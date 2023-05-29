@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {SECRET} from "../middleware/auth";
 import {In, Like} from "typeorm";
+import { Friend } from "../models/Friend";
 
 class UserService{
     private userRepository;

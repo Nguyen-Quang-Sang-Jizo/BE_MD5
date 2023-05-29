@@ -6,7 +6,7 @@ import router from "./src/routers";
 import * as dotenv from "dotenv";
 import cors from "cors"
 
-const PORT = 3000;
+const PORT = 8000;
 const app = express();
 
 dotenv.config();

@@ -10,6 +10,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth_1 = require("../middleware/auth");
 const typeorm_1 = require("typeorm");
+const Friend_1 = require("../models/Friend");
 class UserService {
     constructor() {
         this.getUser = async () => {
@@ -79,6 +80,29 @@ class UserService {
                 console.log(`Error ${error} on adminSearchUsername in adminUserService`);
                 throw error;
             }
+        };
+        this.getFriend = async (userId) => {
+            let friendships = await data_source_1.AppDataSource.createQueryBuilder()
+                .select("friend")
+                .from(Friend_1.Friend, "friend")
+                .leftJoinAndSelect("friend.friend_One", "one")
+                .leftJoinAndSelect("friend.friend_Two", "two")
+                .where("friend.friend_One = :idOne", { idOne: userId })
+                .orWhere("friend.friend_Two = :idTwo", { idTwo: userId })
+                .getMany();
+            let friends = friendships.map(item => {
+                if (item.friend_One.id == userId) {
+                    return item.friend_Two.id;
+                }
+                else {
+                    return item.friend_One.id;
+                }
+            });
+            return await this.userRepository.find({
+                where: {
+                    id: (0, typeorm_1.In)(friends)
+                }
+            });
         };
         this.userRepository = data_source_1.AppDataSource.getRepository(User_1.User);
         this.postRepository = data_source_1.AppDataSource.getRepository(Post_1.Post);
