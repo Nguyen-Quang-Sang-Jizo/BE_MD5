@@ -1,6 +1,7 @@
 import {Comment} from "../models/Comment";
 import {AppDataSource} from "../configs/data-source";
 import postController from "../controllers/postController";
+import { create } from "domain";
 
 class CommentService{
     private commentRepository;
@@ -16,9 +17,22 @@ class CommentService{
         });
         return comments;
     }
-    addComment = async (comment) =>{
-        await this.commentRepository.save(comment);
-    }
+      addComment= (contents, userId, postId) => {
+          const comment = {
+            contents,
+            userId,
+            postId,
+          };
+      
+          const newComment =  this.commentRepository.save(comment);
+      
+          return newComment;
+        }
+      
+     
+    
+      
+      
     // dùng để xóa comment , dùng cho cả admin và user
         showDetailComments = async (id) => {
         let comment = await this.commentRepository.find(

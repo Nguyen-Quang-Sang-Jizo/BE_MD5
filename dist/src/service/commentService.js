@@ -13,8 +13,14 @@ class CommentService {
             });
             return comments;
         };
-        this.addComment = async (comment) => {
-            await this.commentRepository.save(comment);
+        this.addComment = (contents, userId, postId) => {
+            const comment = {
+                contents,
+                userId,
+                postId,
+            };
+            const newComment = this.commentRepository.save(comment);
+            return newComment;
         };
         this.showDetailComments = async (id) => {
             let comment = await this.commentRepository.find({ where: { post: { id: id } },

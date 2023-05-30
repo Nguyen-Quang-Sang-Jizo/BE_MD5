@@ -9,17 +9,15 @@ const commentService_1 = __importDefault(require("../service/commentService"));
 class CommentControllers {
     constructor() {
         this.addComments = async (req, res) => {
-            if (!req.body.contents) {
-                res.status(400).json({
-                    message: 'content missing'
-                });
-                res.end();
+            const contents = req.body;
+            const postId = req.params.id;
+            const userId = req.user.id;
+            try {
+                const newComment = await commentService_1.default.addComment(contents, userId, postId);
+                res.status(201).json(newComment);
             }
-            else {
-                await this.commentService.addComment(req.body);
-                res.status(201).json({
-                    message: 'OK'
-                });
+            catch (error) {
+                res.status(500).json({ error: 'Failed to add comment' });
             }
         };
         this.showAll = async (req, res) => {
