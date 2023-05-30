@@ -13,8 +13,21 @@ class CommentService {
             });
             return comments;
         };
-        this.addComment = async (comment) => {
-            await this.commentRepository.save(comment);
+        this.addComment = async (comment, user, postId) => {
+            console.log('dang o add comment');
+            let newComment = {
+                contents: comment.contents,
+                date_created: comment.date_created,
+                user: user,
+                post: {
+                    where: { id: postId }
+                }
+            };
+            return (await this.commentRepository.save(newComment));
+        };
+        this.addCommentByUser = async (data) => {
+            console.log('-----dang o addComment');
+            return await this.commentRepository.save(data);
         };
         this.showDetailComments = async (id) => {
             let comment = await this.commentRepository.find({ where: { post: { id: id } },
@@ -26,9 +39,7 @@ class CommentService {
             return (comment);
         };
         this.removeOneComment = async (id) => {
-            await this.commentRepository.delete({
-                where: { post: id }
-            });
+            await this.commentRepository.delete(id);
         };
         this.deleteComment = async (id) => {
             await this.commentRepository.createQueryBuilder()

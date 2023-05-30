@@ -5,8 +5,7 @@ import {auth} from "../middleware/auth";
 const likeRouter = Router();
 
 likeRouter.get('/' , likeControllers.getAll);
-likeRouter.post('/', likeControllers.addLike)
+likeRouter.post('/', auth, likeControllers.addLike)
+likeRouter.delete('/post/:id', auth,likeControllers.deleteLike);
 likeRouter.get('/:id', auth, likeControllers.detailLike);
-likeRouter.delete('/:id', auth, likeControllers.deleteLike);
-
 export default likeRouter

@@ -16,6 +16,10 @@ class PostControllers {
             let listPost = await this.postService.getAll();
             res.status(200).json(listPost);
         };
+        this.findAllById = async (req, res) => {
+            let listPost = await this.postService.getAllByIdUser();
+            res.status(200).json(listPost);
+        };
         this.addPost = async (req, res) => {
             const author = req["decode"].idUser;
             let post = req.body;

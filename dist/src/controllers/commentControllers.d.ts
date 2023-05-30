@@ -4,7 +4,7 @@ declare class CommentControllers {
     private categoryService;
     private commentService;
     constructor();
-    addComments: (req: Request, res: Response) => Promise<void>;
+    createComment: (req: Request, res: Response) => Promise<void>;
     showAll: (req: Request, res: Response) => Promise<void>;
     showComment: (req: Request, res: Response) => Promise<void>;
     removeComment: (req: Request, res: Response) => Promise<void>;

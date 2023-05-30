@@ -8,10 +8,11 @@ import { onlyDeleteOwnPost } from "../middleware/delete";
 const postRouter = Router();
 postRouter.get('/', privatePost, postControllers.findAll);
 postRouter.post('/',auth, postControllers.addPost);
+postRouter.get('/my-list', auth, postControllers.findAllById);
 postRouter.put('/:id', auth,onlyDeleteOwnPost, postControllers.editPost);
 postRouter.delete('/:id', auth,onlyDeleteOwnPost, postControllers.removePost);
-postRouter.get('/:id', onlyDeleteOwnPost, postControllers.findId);
-postRouter.get('/search/:name' ,postControllers.postSearch);
+postRouter.get('/admin/:id', onlyDeleteOwnPost, postControllers.findId);
+postRouter.get('/search/:title' ,postControllers.postSearch);
 postRouter.get('/classify/:id' ,postControllers.postClassify);
 
 export default postRouter;

@@ -8,6 +8,7 @@ declare class PostControllers {
     private imageService;
     constructor();
     findAll: (req: Request, res: Response) => Promise<void>;
+    findAllById: (req: Request, res: Response) => Promise<void>;
     addPost: (req: Request, res: Response) => Promise<void>;
     editPost: (req: Request, res: Response) => Promise<void>;
     removePost: (req: Request, res: Response) => Promise<void>;

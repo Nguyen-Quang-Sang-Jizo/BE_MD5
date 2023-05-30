@@ -16,11 +16,37 @@ class CommentService{
         });
         return comments;
     }
-    addComment = async (comment) =>{
-        await this.commentRepository.save(comment);
+    addComment = async (comment, user, postId) =>{
+        console.log('dang o add comment')
+        let newComment = {
+            contents : comment.contents,
+            date_created: comment.date_created,
+            user : user,
+            post : {
+                where: {id : postId}
+            }
+        }
+        return (await this.commentRepository.save(newComment));
     }
+    addCommentByUser = async (data) => {
+        console.log('-----dang o addComment')
+        // let comment = await this.commentRepository
+        //     .createQueryBuilder()
+        //     .insert()
+        //     .into(Comment)
+        //     .values({
+        //         contents: data.contents,
+        //         date_created: data.date_created,
+        //         user: userID,
+        //         post: data.postId
+        //     })
+        //     .execute()
+        // console.log('----- new comment',comment)
+        return await this.commentRepository.save(data)
+    }
+
     // dùng để xóa comment , dùng cho cả admin và user
-        showDetailComments = async (id) => {
+    showDetailComments = async (id) => {
         let comment = await this.commentRepository.find(
             {where: {post: {id: id}},
             relations:{
@@ -31,16 +57,10 @@ class CommentService{
         return(comment);
     }
     removeOneComment = async (id) => {
-        await this.commentRepository.delete({
-            where: {post: id}
-        })
+        await this.commentRepository.delete(id)
     }
 
     deleteComment = async (id) => {
-        // await this.commentRepository.delete({
-        //     where: {post: id}
-        // })
-
         await this.commentRepository.createQueryBuilder()
             .delete()
             .from(Comment)

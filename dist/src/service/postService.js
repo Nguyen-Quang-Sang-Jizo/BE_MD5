@@ -16,6 +16,17 @@ class PostService {
             });
             return posts;
         };
+        this.getAllByIdUser = async () => {
+            return await this.postRepository.find({
+                where: { author: true },
+                relations: {
+                    category: true,
+                    author: true,
+                    image: true,
+                    comments: true
+                }
+            });
+        };
         this.addPostByUser = async (post, author) => {
             let newPost = {
                 title: post.title,
@@ -62,7 +73,10 @@ class PostService {
         };
         this.searchP = async (title) => {
             let posts = await this.postRepository.findBy({
-                title: (0, typeorm_1.Like)(`%${title}%`)
+                title: (0, typeorm_1.Like)(`%${title}%`),
+                order: {
+                    date_updated: 'DESC'
+                }
             });
             return posts;
         };

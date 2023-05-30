@@ -13,8 +13,8 @@ class LikeService {
             });
             return likes;
         };
-        this.addNewLike = async (like) => {
-            await this.likeRepository.save(like);
+        this.addLikeByUser = async (data) => {
+            await this.likeRepository.save(data);
         };
         this.findByIdLike = async (id) => {
             let like = await this.likeRepository.find({ where: { id: id },
@@ -25,8 +25,14 @@ class LikeService {
             });
             return like;
         };
-        this.deleteLikeById = async (id) => {
-            await this.likeRepository.delete(id);
+        this.deleteLikeByUserId = async (userId, postId) => {
+            console.log('----- dang o delete post');
+            await this.likeRepository
+                .createQueryBuilder()
+                .delete()
+                .from(Like_1.Like)
+                .where("user = :userId AND post = :postId", { userId: userId, postId: postId })
+                .execute();
         };
         this.deleteAllByPostId = async (id) => {
             await this.likeRepository.createQueryBuilder()

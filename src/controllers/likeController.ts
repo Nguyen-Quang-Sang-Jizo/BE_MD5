@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import postService from "../service/postService";
 import categoryService from "../service/categoryService";
 import likeService from "../service/likeService";
-import commentService from "../service/commentService";
 
 class LikeController {
     private postService;
@@ -19,19 +18,24 @@ class LikeController {
         res.status(200).json(listLike)
     }
     addLike = async (req: Request, res: Response) => {
-        let like = await this.likeService.addNewLike()
-        res.status(200).json(like)
+        let userId = parseInt(req["decode"].idUser)
+        req.body.user = userId
+        await this.likeService.addLikeByUser(req.body)
+        res.status(201).json('them thanh cong')
+    }
+
+    deleteLike = async (req: Request, res: Response) => {
+        let postId = req.params.id
+        let userId = parseInt(req["decode"].idUser)
+        console.log('-----UserId', userId)
+        await this.likeService.deleteLikeByUserId(userId, postId)
+        res.status(201).json('xoa thanh cong')
     }
     detailLike = async (req: Request, res: Response) => {
         let id = req.params.id;
         const like = await this.likeService.findByIdLike(id);
         console.log(like)
         res.status(200).json(like)
-    }
-    deleteLike = async (req: Request, res: Response) => {
-        let id = req.params.id;
-        await this.likeService.deleteLikeById(id)
-        res.status(200).json('xoa thanh cong')
     }
 }
 

@@ -19,7 +19,17 @@ class PostService{
         });
         return posts;
     }
-
+    getAllByIdUser = async () => {
+        return await this.postRepository.find({
+            where: {author: true},
+            relations: {
+                category: true,
+                author: true,
+                image: true,
+                comments: true
+            }
+        })
+    }
     addPostByUser = async (post, author) =>{
         //
         let newPost = {
@@ -33,6 +43,7 @@ class PostService{
         }
         return (await this.postRepository.save(newPost));
     }
+
     deletePost = async (id) => {
         await this.postRepository.delete(id);
     }
@@ -76,7 +87,10 @@ class PostService{
 
     searchP = async (title) => {
         let posts = await this.postRepository.findBy({
-            title: Like(`%${title}%`)
+            title: Like(`%${title}%`),
+            order: {
+                date_updated: 'DESC'
+            }
         });
         return posts;
     }

@@ -8,19 +8,12 @@ const categoryService_1 = __importDefault(require("../service/categoryService"))
 const commentService_1 = __importDefault(require("../service/commentService"));
 class CommentControllers {
     constructor() {
-        this.addComments = async (req, res) => {
-            if (!req.body.contents) {
-                res.status(400).json({
-                    message: 'content missing'
-                });
-                res.end();
-            }
-            else {
-                await this.commentService.addComment(req.body);
-                res.status(201).json({
-                    message: 'OK'
-                });
-            }
+        this.createComment = async (req, res) => {
+            let userId = parseInt(req["decode"].idUser);
+            console.log('-----UserId', userId);
+            req.body.user = userId;
+            await this.commentService.addCommentByUser(req.body);
+            res.status(201).json('them thanh cong');
         };
         this.showAll = async (req, res) => {
             let listComment = await this.commentService.getAllComment();

@@ -12,19 +12,12 @@ class CommentControllers{
         this.categoryService = categoryService;
         this.commentService = commentService;
     }
-    addComments = async (req: Request, res: Response) => {
-
-        if(!req.body.contents){
-            res.status(400).json({
-                message: 'content missing'
-            })
-            res.end();
-        }else {
-            await this.commentService.addComment(req.body)
-            res.status(201).json({
-                message: 'OK'
-            })
-        }
+    createComment = async (req: Request, res: Response) => {
+        let userId = parseInt(req["decode"].idUser)
+        console.log('-----UserId', userId)
+        req.body.user = userId
+        await this.commentService.addCommentByUser(req.body)
+        res.status(201).json('them thanh cong')
     }
     showAll = async (req: Request, res: Response) => {
         let listComment = await this.commentService.getAllComment()

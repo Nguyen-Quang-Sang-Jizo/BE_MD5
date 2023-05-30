@@ -29,6 +29,11 @@ class PostControllers {
         let listPost = await this.postService.getAll();
         res.status(200).json(listPost);
     }
+
+    findAllById = async (req: Request, res: Response) => {
+        let listPost = await this.postService.getAllByIdUser();
+        res.status(200).json(listPost);
+    }
     addPost = async (req: Request, res: Response) => {
         const author = req["decode"].idUser
         let post = req.body
@@ -60,15 +65,12 @@ class PostControllers {
         })
     }
 
-
     removePost = async (req: Request, res: Response) => {
         let id = req.params.id;
         console.log(id)
-        // await this.likeService.deleteLikeById(id)
         await this.commentService.deleteComment(id)
         await this.likeService.deleteAllByPostId(id)
         await this.imageService.deleteAllImageByPostId(id)
-        // await this.commentService.removeAllComment(id)
         await this.postService.deletePost(id);
         res.status(200).json({
             message: 'Delete success'
