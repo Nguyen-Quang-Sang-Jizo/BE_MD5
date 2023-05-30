@@ -5,13 +5,18 @@ const data_source_1 = require("../configs/data-source");
 class CommentService {
     constructor() {
         this.getAllComment = async () => {
-            let comments = await this.commentRepository.find();
+            let comments = await this.commentRepository.find({
+                relations: {
+                    user: true,
+                    post: true
+                }
+            });
             return comments;
         };
         this.addComment = async (comment) => {
             await this.commentRepository.save(comment);
         };
-        this.findByIdComments = async (id) => {
+        this.showDetailComments = async (id) => {
             let comment = await this.commentRepository.find({ where: { post: { id: id } },
                 relations: {
                     post: true,
@@ -20,11 +25,26 @@ class CommentService {
             });
             return (comment);
         };
-        this.deleteComment = async (id) => {
-            await this.commentRepository.delete(id);
+        this.removeOneComment = async (id) => {
+            await this.commentRepository.delete({
+                where: { post: id }
+            });
         };
-        this.findByIdCommentss = async (id) => {
-            return (await this.commentRepository.findOne({ where: { id: id } }));
+        this.deleteComment = async (id) => {
+            await this.commentRepository.createQueryBuilder()
+                .delete()
+                .from(Comment_1.Comment)
+                .where("post = :post", { post: id })
+                .execute();
+        };
+        this.findByIdComments = async (id) => {
+            return await this.commentRepository.findOne({
+                relations: {
+                    user: true,
+                    post: true
+                },
+                where: { post: { id: id } }
+            });
         };
         this.updateComment = async (id, newComment) => {
             await this.commentRepository.update(id, newComment);

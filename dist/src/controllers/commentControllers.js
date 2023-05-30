@@ -23,17 +23,17 @@ class CommentControllers {
             }
         };
         this.showAll = async (req, res) => {
-            let comment = await this.commentService.getAllComment();
-            res.status(200).json(comment);
+            let listComment = await this.commentService.getAllComment();
+            res.status(200).json(listComment);
         };
         this.showComment = async (req, res) => {
             let id = req.params.id;
-            let comment = await this.commentService.findByIdCommentss(id);
+            let comment = await this.commentService.findByIdComments(id);
             res.status(200).json(comment);
         };
         this.removeComment = async (req, res) => {
             let id = req.params.id;
-            await this.commentService.deleteComment(id);
+            await this.commentService.removeOneComment(id);
             res.status(200).json({
                 message: 'Delete success'
             });

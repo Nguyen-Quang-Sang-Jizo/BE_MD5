@@ -6,8 +6,8 @@ export class Image {
     @PrimaryGeneratedColumn({type: 'int'})
     id: number;
 
-    @Column({type: 'text'})
-    public image: string;
+    @Column()
+    imageURL: string;
 
     @ManyToOne(() => Post, post => post.image)
     post: Post;

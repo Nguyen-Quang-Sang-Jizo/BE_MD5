@@ -3,6 +3,9 @@ declare class PostControllers {
     private postService;
     private categoryService;
     private userService;
+    private likeService;
+    private commentService;
+    private imageService;
     constructor();
     findAll: (req: Request, res: Response) => Promise<void>;
     addPost: (req: Request, res: Response) => Promise<void>;

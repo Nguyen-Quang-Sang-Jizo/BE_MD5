@@ -10,7 +10,8 @@ class PostService {
                 relations: {
                     category: true,
                     author: true,
-                    image: true
+                    image: true,
+                    comments: true
                 }
             });
             return posts;
@@ -25,7 +26,7 @@ class PostService {
                 category: post.category,
                 author: author,
             };
-            await this.postRepository.save(newPost);
+            return (await this.postRepository.save(newPost));
         };
         this.deletePost = async (id) => {
             await this.postRepository.delete(id);
@@ -34,12 +35,30 @@ class PostService {
             let post = await this.postRepository.findOne({ where: { id: id },
                 relations: {
                     author: true,
+                    category: true,
+                    image: true
                 }
             });
             return (post);
         };
-        this.updatePost = async (id, newPost) => {
-            await this.postRepository.update(id, newPost);
+        this.findLastPost = async () => {
+            console.log(1);
+            const firstItem = await this.postRepository.find();
+            console.log(firstItem);
+            return firstItem;
+        };
+        this.updatePost = async (id, post) => {
+            console.log('da vao pót');
+            let newPost = await this.postRepository.createQueryBuilder()
+                .update(Post_1.Post)
+                .set({
+                title: post.title,
+                content: post.content,
+                status: post.status,
+            })
+                .where("id = :id", { id: id })
+                .execute();
+            console.log(newPost);
         };
         this.searchP = async (title) => {
             let posts = await this.postRepository.findBy({
