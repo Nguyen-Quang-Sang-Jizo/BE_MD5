@@ -11,7 +11,7 @@ const deleteComment = async (req, res, next) => {
     let accessToken = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(accessToken, exports.SECRET);
     let id = req.params.id;
-    const comment = await commentService_1.default.findByIdComments(id);
+    const comment = await commentService_1.default.showDetailComments(id);
     console.log(comment);
     if (!comment) {
         return res.status(403).json({ message: 'Bạn không được phép xóa bình luận  này' });

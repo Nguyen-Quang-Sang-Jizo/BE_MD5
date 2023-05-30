@@ -19,9 +19,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Image.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'text' }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Image.prototype, "image", void 0);
+], Image.prototype, "imageURL", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Post_1.Post, post => post.image),
     __metadata("design:type", Post_1.Post)

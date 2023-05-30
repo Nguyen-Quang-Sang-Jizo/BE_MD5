@@ -27,24 +27,22 @@ class CommentControllers{
         }
     }
     showAll = async (req: Request, res: Response) => {
-        // let id = req.params.id;
-        let comment = await this.commentService.getAllComment()
-        res.status(200).json(comment)
+        let listComment = await this.commentService.getAllComment()
+        res.status(200).json(listComment)
     }
     showComment = async (req: Request, res: Response) => {
         let id = req.params.id;
-       let comment = await this.commentService.findByIdCommentss(id)
+       let comment = await this.commentService.findByIdComments(id)
         res.status(200).json(comment)
     }
 
     removeComment = async (req: Request, res: Response) => {
         let id = req.params.id;
-        await this.commentService.deleteComment(id);
+        await this.commentService.removeOneComment(id);
         res.status(200).json({
             message: 'Delete success'
         })
     }
-
     findIdComments = async (req: Request, res: Response) => {
         let id = req.params.id;
         let comment = await this.commentService.findByIdCommentss(id);

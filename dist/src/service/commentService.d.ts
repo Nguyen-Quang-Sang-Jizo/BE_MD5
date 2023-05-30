@@ -3,9 +3,10 @@ declare class CommentService {
     constructor();
     getAllComment: () => Promise<any>;
     addComment: (comment: any) => Promise<void>;
-    findByIdComments: (id: any) => Promise<any>;
+    showDetailComments: (id: any) => Promise<any>;
+    removeOneComment: (id: any) => Promise<void>;
     deleteComment: (id: any) => Promise<void>;
-    findByIdCommentss: (id: any) => Promise<any>;
+    findByIdComments: (id: any) => Promise<any>;
     updateComment: (id: any, newComment: any) => Promise<void>;
 }
 declare const _default: CommentService;

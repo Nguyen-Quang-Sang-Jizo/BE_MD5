@@ -7,7 +7,7 @@ export const deleteComment = async (req, res, next) => {
     let accessToken = req.headers.authorization.split(' ')[1];
     const decodedToken  = jwt.verify(accessToken, SECRET)
     let id = req.params.id;
-    const comment = await commentService.findByIdComments(id);
+    const comment = await commentService.showDetailComments(id);
     console.log(comment)
 
     if(!comment){
