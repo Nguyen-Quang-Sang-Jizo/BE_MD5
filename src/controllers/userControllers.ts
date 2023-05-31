@@ -20,6 +20,7 @@ class UserControllers{
     }
 
     register = async (req: Request, res: Response) => {
+        console.log('da vao register')
         let listUser = await this.userService.getUser();
         let list = listUser.map(function (acc){
             return acc.username
@@ -33,10 +34,21 @@ class UserControllers{
         }
     }
 
-    login = async (req: Request, res: Response) => {
-        let resultCheck = await this.userService.checkUser(req.body);
 
-        res.status(200).json(resultCheck);
+
+    login = async (req: Request, res: Response) => {
+        try{
+            let resultCheck = await this.userService.checkUser(req.body);
+            res.status(200).json(resultCheck);
+        }
+        catch (e){
+            console.log('error in signup')
+            res.status(400).json({
+                message: 'error in signup',
+                success: false
+            })
+        }
+
     }
     personalInformation = async (req:Request, res: Response) => {
         let id = req.params.id;

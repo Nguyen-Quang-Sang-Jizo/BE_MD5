@@ -26,9 +26,21 @@ class PostControllers {
     }
 
     findAll = async (req: Request, res: Response) => {
-        let listPost = await this.postService.getAll();
-        res.status(200).json(listPost);
+        let listPosts = await postService.getAll();
+        const publicPosts = listPosts.filter(post => post.status === 'public');
+        const privatePosts = listPosts.filter(post => post.status === 'private');
+        const idUserLogin = req["decode"].idUser
+
+        const privates = privatePosts.filter(post => post.author.id === idUserLogin);
+        const data = [...publicPosts,...privates];
+        if ( req["decode"].role === 'admin') {
+            return res.json(listPosts);
+        } else {
+            return res.json(data);
+        }
     }
+
+
 
     findAllById = async (req: Request, res: Response) => {
         let listPost = await this.postService.getAllByIdUser();

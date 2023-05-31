@@ -16,7 +16,6 @@ const AppDataSource = new DataSource({
     password: "123456",
     database: "module5",
     synchronize: true,
-    logging: false,
     entities: ["./dist/src/models/*.js"],
 });
 

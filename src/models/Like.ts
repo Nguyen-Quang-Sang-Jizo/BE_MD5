@@ -12,6 +12,8 @@ export class Like {
 
     @ManyToOne(type => User)
     user: User;
+    @Column()
+    status: boolean;
 
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     created_at: Date;
