@@ -12,7 +12,7 @@ export class User {
     @Column({type: 'varchar'})
     public password: string;
 
-    @Column({type: 'text'})
+    @Column({ type: 'text', nullable: true })
     public image: string;
 
     @Column({ default: 'user', type: 'varchar' })
