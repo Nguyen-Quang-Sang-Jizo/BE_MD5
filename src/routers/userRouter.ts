@@ -14,5 +14,5 @@ userRouter.delete('/:id', userControllers.removeUser);
 userRouter.delete('/account/:id', userControllers.deleteUsers);
 userRouter.get('/', auth, userControllers.findUsers);
 userRouter.get('/:username', userControllers.findIdUser);
-userRouter.get('/search/:name', auth, checkRole, userControllers.searchUsername);
+userRouter.get('/search/:name', auth,userControllers.searchUsername);
 export default userRouter;

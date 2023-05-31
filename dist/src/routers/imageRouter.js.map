@@ -1,1 +1,1 @@
-{"version":3,"file":"imageRouter.js","sourceRoot":"","sources":["../../../src/routers/imageRouter.ts"],"names":[],"mappings":";;;;;AAAA,qCAA+B;AAC/B,qFAA6D;AAE7D,MAAM,WAAW,GAAG,IAAA,gBAAM,GAAE,CAAC;AAE7B,WAAW,CAAC,MAAM,CAAC,MAAM,EAAE,yBAAe,CAAC,SAAS,CAAC,CAAC;AAEtD,kBAAe,WAAW,CAAA"}
+{"version":3,"file":"imageRouter.js","sourceRoot":"","sources":["../../../src/routers/imageRouter.ts"],"names":[],"mappings":";;;;;AAAA,qCAA+B;AAC/B,qFAA6D;AAE7D,MAAM,WAAW,GAAG,IAAA,gBAAM,GAAE,CAAC;AAE7B,WAAW,CAAC,MAAM,CAAC,MAAM,EAAE,yBAAe,CAAC,SAAS,CAAC,CAAC;AACtD,kBAAe,WAAW,CAAA"}
