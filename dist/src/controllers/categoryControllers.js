@@ -3,19 +3,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const postService_1 = __importDefault(require("../service/postService"));
 const categoryService_1 = __importDefault(require("../service/categoryService"));
 class PostController {
     constructor() {
-        this.findAll = async (req, res) => {
-            let listPost = await this.postService.getAll();
-            res.render('index', { posts: listPost });
-        };
         this.findAllCategory = async (req, res) => {
-            let listCategory = await this.categoryService.getAll();
-            res.status(200).json(listCategory);
+            try {
+                let listCategory = await this.categoryService.getAll();
+                res.status(200).json({
+                    data: listCategory,
+                    success: true
+                });
+            }
+            catch (e) {
+                console.log("error in find all category", e);
+                res.status(500).json({
+                    message: 'get all category failed',
+                    success: false
+                });
+            }
         };
-        this.postService = postService_1.default;
         this.categoryService = categoryService_1.default;
     }
 }

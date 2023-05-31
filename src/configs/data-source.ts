@@ -5,7 +5,7 @@ import {DataSource} from "typeorm";
 import { Post } from "../models/Post";
 import { Tag } from "../models/Tag";
 import { Comment } from "../models/Comment";
-import { Like } from "../models/Like";
+import { Likes } from "../models/Like";
 import { Image } from "../models/Image";
 
 const AppDataSource = new DataSource({
