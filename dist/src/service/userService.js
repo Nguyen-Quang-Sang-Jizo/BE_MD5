@@ -33,11 +33,13 @@ class UserService {
                     let payload = {
                         idUser: userFind.id,
                         username: userFind.username,
-                        role: userFind.role
+                        role: userFind.role,
                     };
-                    return jsonwebtoken_1.default.sign(payload, auth_1.SECRET, {
+                    let token = jsonwebtoken_1.default.sign(payload, auth_1.SECRET, {
                         expiresIn: 36000 * 1000
                     });
+                    payload['token'] = token;
+                    return payload;
                 }
                 else {
                     return 'Password is wrong';

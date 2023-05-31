@@ -1,45 +1,19 @@
 {
-
   "compilerOptions": {
-
-      "preserveSymlinks": true,
-
-      "module": "commonjs",
-
-      "declaration": true,
-
-      "esModuleInterop": true,
-
-      "removeComments": true,
-
-      "emitDecoratorMetadata": true,
-
-      "experimentalDecorators": true,
-
-      "target": "es2017",
-
-      "sourceMap": true,
-
-      "outDir": "./dist",
-
-      "baseUrl": "./",
-
-      "incremental": true,
-
-      "skipLibCheck": true,
-
-      "noUnusedParameters": false,
-
-      "noUnusedLocals": false,
-
+    "module": "commonjs",
+    "declaration": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
   },
-
-  "exclude": ["node_modules", "dist"],
-
-  "typeRoots": [
-      "./typing-stubs",
-      "./node_modules/@types",
-      "./src/types"
-  ]
-
+  "exclude": ["node_modules", "dist"]
 }

@@ -7,7 +7,7 @@ declare class PostControllers {
     private commentService;
     private imageService;
     constructor();
-    findAll: (req: Request, res: Response) => Promise<void>;
+    findAll: (req: Request, res: Response) => Promise<Response<any, Record<string, any>>>;
     findAllById: (req: Request, res: Response) => Promise<void>;
     addPost: (req: Request, res: Response) => Promise<void>;
     editPost: (req: Request, res: Response) => Promise<void>;

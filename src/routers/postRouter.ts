@@ -6,7 +6,7 @@ import { privatePost } from "../middleware/private";
 import { onlyDeleteOwnPost } from "../middleware/delete";
 
 const postRouter = Router();
-postRouter.get('/', privatePost, postControllers.findAll);
+postRouter.get('/',auth, postControllers.findAll);
 postRouter.post('/',auth, postControllers.addPost);
 postRouter.get('/my-list', auth, postControllers.findAllById);
 postRouter.put('/:id', auth,onlyDeleteOwnPost, postControllers.editPost);

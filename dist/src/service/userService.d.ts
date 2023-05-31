@@ -5,7 +5,11 @@ declare class UserService {
     constructor();
     getUser: () => Promise<any>;
     registers: (user: any) => Promise<any>;
-    checkUser: (user: any) => Promise<string>;
+    checkUser: (user: any) => Promise<"User is not exist" | {
+        idUser: any;
+        username: any;
+        role: any;
+    } | "Password is wrong">;
     findByIdUser: (username: any) => Promise<any>;
     deleteUser: (id: any) => Promise<void>;
     updateUser: (id: any, newUser: any) => Promise<void>;

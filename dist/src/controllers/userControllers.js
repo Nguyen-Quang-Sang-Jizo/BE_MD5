@@ -63,9 +63,9 @@ class UserControllers {
                 res.status(200).json(resultCheck);
             }
             catch (e) {
-                console.log("error in login:", e);
+                console.log('error in signup');
                 res.status(400).json({
-                    message: 'error in login',
+                    message: 'error in signup',
                     success: false
                 });
             }

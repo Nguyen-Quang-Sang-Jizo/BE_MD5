@@ -11,7 +11,6 @@ const AppDataSource = new typeorm_1.DataSource({
     password: "123456",
     database: "module5",
     synchronize: true,
-    logging: false,
     entities: ["./dist/src/models/*.js"],
 });
 exports.AppDataSource = AppDataSource;

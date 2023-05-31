@@ -37,11 +37,14 @@ class UserService{
                 let payload = {
                     idUser: userFind.id,
                     username: userFind.username,
-                    role: userFind.role
+                    role: userFind.role,
+
                 }
-                return jwt.sign(payload, SECRET, {
+                let token =  jwt.sign(payload, SECRET, {
                     expiresIn: 36000 * 1000
                 })
+                payload['token'] = token
+                return payload
             }else {
                 return 'Password is wrong'
             }

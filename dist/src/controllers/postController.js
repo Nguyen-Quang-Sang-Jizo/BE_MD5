@@ -14,11 +14,18 @@ class PostControllers {
     constructor() {
         this.findAll = async (req, res) => {
             try {
-                let listPost = await this.postService.getAll();
-                res.status(200).json({
-                    data: listPost,
-                    success: true
-                });
+                let listPosts = await postService_1.default.getAll();
+                const publicPosts = listPosts.filter(post => post.status === 'public');
+                const privatePosts = listPosts.filter(post => post.status === 'private');
+                const idUserLogin = req["decode"].idUser;
+                const privates = privatePosts.filter(post => post.author.id === idUserLogin);
+                const data = [...publicPosts, ...privates];
+                if (req["decode"].role === 'admin') {
+                    return res.json(listPosts);
+                }
+                else {
+                    return res.json(data);
+                }
             }
             catch (e) {
                 console.log("error in post controller", e);

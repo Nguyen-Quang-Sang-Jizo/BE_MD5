@@ -27,11 +27,18 @@ class PostControllers {
 
     findAll = async (req: Request, res: Response) => {
         try {
-            let listPost = await this.postService.getAll();
-            res.status(200).json({
-                data: listPost,
-                success: true
-            });
+            let listPosts = await postService.getAll();
+            const publicPosts = listPosts.filter(post => post.status === 'public');
+            const privatePosts = listPosts.filter(post => post.status === 'private');
+            const idUserLogin = req["decode"].idUser
+
+            const privates = privatePosts.filter(post => post.author.id === idUserLogin);
+            const data = [...publicPosts,...privates];
+            if ( req["decode"].role === 'admin') {
+                return res.json(listPosts);
+            } else {
+                return res.json(data);
+            }
         } catch (e) {
             console.log("error in post controller", e)
             res.status(500).json({
@@ -39,6 +46,7 @@ class PostControllers {
                 success: false
             })
         }
+
     }
 
     findAllById = async (req: Request, res: Response) => {
@@ -80,7 +88,6 @@ class PostControllers {
                 success: false
             })
         }
-
     }
 
     editPost = async (req: Request, res: Response) => {

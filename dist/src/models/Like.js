@@ -28,6 +28,10 @@ __decorate([
     __metadata("design:type", User_1.User)
 ], Likes.prototype, "user", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Boolean)
+], Likes.prototype, "status", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Likes.prototype, "created_at", void 0);
