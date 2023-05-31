@@ -12,22 +12,6 @@ class CommentControllers{
         this.categoryService = categoryService;
         this.commentService = commentService;
     }
-<<<<<<< HEAD
-    addComments= async (req, res) => {
-        const  contents = req.body;
-        const  postId  = req.params.id; 
-        const userId = req.user.id;
-        
-        try {
-          const newComment = await  commentService.addComment(contents, userId, postId);
-    
-          res.status(201).json(newComment);
-        } catch (error) {
-          res.status(500).json({ error: 'Failed to add comment' });
-        }
-      }
-    
-=======
     createComment = async (req: Request, res: Response) => {
         try{
         let userId = parseInt(req["decode"].idUser)
@@ -43,7 +27,6 @@ class CommentControllers{
         })
     }
     }
->>>>>>> 7f3037b9730a2ab51aa30d6312abe6106500e224
     showAll = async (req: Request, res: Response) => {
         try{
         let listComment = await this.commentService.getAllComment()
