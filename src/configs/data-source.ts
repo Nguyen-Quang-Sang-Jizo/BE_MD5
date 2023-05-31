@@ -1,12 +1,7 @@
 import "reflect-metadata";
-import {User} from "../models/User";
-import {Category} from "../models/Category";
+
 import {DataSource} from "typeorm";
-import { Post } from "../models/Post";
-import { Tag } from "../models/Tag";
-import { Comment } from "../models/Comment";
-import { Likes } from "../models/Like";
-import { Image } from "../models/Image";
+
 
 
 const AppDataSource = new DataSource({
@@ -17,7 +12,6 @@ const AppDataSource = new DataSource({
     password: "123456",
     database: "module5",
     synchronize: true,
-    logging: false,
     entities: ["./dist/src/models/*.js"],
 });
 

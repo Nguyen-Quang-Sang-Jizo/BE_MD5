@@ -19,7 +19,7 @@ class UserControllers{
                 success: false
             })
         }
-    
+
     }
     getMany = async (req: Request, res: Response) => {
         try{
@@ -59,18 +59,21 @@ class UserControllers{
      }
     }
 
+
+
     login = async (req: Request, res: Response) => {
         try{
-        let resultCheck = await this.userService.checkUser(req.body);
-
-        res.status(200).json(resultCheck);
-        }catch(e){
-            console.log("error in login:",e )
+            let resultCheck = await this.userService.checkUser(req.body);
+            res.status(200).json(resultCheck);
+        }
+        catch (e){
+            console.log('error in signup')
             res.status(400).json({
-                message: 'error in login',
+                message: 'error in signup',
                 success: false
             })
         }
+
     }
     personalInformation = async (req:Request, res: Response) => {
         try{
