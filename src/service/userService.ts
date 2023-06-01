@@ -6,27 +6,27 @@ import jwt from "jsonwebtoken";
 import {SECRET} from "../middleware/auth";
 import {In, Like} from "typeorm";
 import {Friend} from "../models/Friend";
+import friendController from "../controllers/friendController";
 
 class UserService{
     private userRepository;
     private postRepository;
-    private friendRepository = AppDataSource.getRepository(Friend)
+    private friendRepository
 
     constructor() {
         this.userRepository = AppDataSource.getRepository(User);
         this.postRepository = AppDataSource.getRepository(Post);
+        this.friendRepository = AppDataSource.getRepository(Friend)
     }
 
     getUser = async () => {
        let user = await this.userRepository.find();
        return user;
     }
-
     registers = async (user) => {
         user.password = await bcrypt.hash(user.password, 10);
         return this.userRepository.save(user);
     }
-
     checkUser = async (user) => {
         let userFind = await this.userRepository.findOneBy({username: user.username});
         if(!userFind){
@@ -50,13 +50,11 @@ class UserService{
             }
         }
     }
-
     findByIdUser = async (username) => {
         let post = await this.userRepository.findOne({where: {username: username},
         })
         return(post);
     }
-
     deleteUser = async (id) => {
         const listPost = await this.postRepository.query(`SELECT * FROM Post WHERE authorId = ${id}`);
         if(listPost && listPost.length > 0) {
@@ -64,11 +62,9 @@ class UserService{
         }
         await this.userRepository.delete(id);
     };
-
     updateUser = async (id, newUser) => {
         await this.userRepository.update(id, newUser)
     }
-
     findIdUsers = async (id) => {
         let post = await this.userRepository.findOne({where: {id: id},
         })
@@ -77,7 +73,6 @@ class UserService{
     deleteAccount = async (id) => {
         await this.userRepository.delete(id);
     }
-
     adminSearchUsername = async (username) => {
         try {
             let searchPeople = await this.userRepository.find({
@@ -93,7 +88,6 @@ class UserService{
         }
     }
     getFriend = async (userId) => {
-        // let friendships = await this.friendRepository.createQueryBuilder("friend")
         let friendships = await AppDataSource.createQueryBuilder()
             .select("friend")
             .from(Friend, "friend")
@@ -115,13 +109,19 @@ class UserService{
                 id: In(friends)
             }
         })
-        // return await this.friendRepository.find({
-        //     relations: {
-        //         friend_Two: true,
-        //         friend_One: true
-        //     },
+    }
+    addFriend = async (data) =>{
+        console.log('-----add friend')
         //
-        // })
+        let newFriend = {
+            friend_One : data.friend_One,
+            friend_Two : data.friend_Two,
+        }
+        console.log(newFriend)
+        return (await this.friendRepository.save(newFriend));
+    }
+    showAllPending = async () => {
+
     }
 }
 

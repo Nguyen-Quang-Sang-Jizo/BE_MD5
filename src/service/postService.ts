@@ -1,13 +1,15 @@
 import {Post} from "../models/Post";
 import {AppDataSource} from "../configs/data-source";
 import {Like} from "typeorm";
+import {Likes} from "../models/Like";
 
 class PostService{
     private postRepository;
+    private likeRepository;
     constructor() {
         this.postRepository = AppDataSource.getRepository(Post)
+        this.likeRepository = AppDataSource.getRepository(Likes)
     }
-
     getAll = async () => {
         let posts = await this.postRepository.find({
             relations:{
@@ -105,9 +107,24 @@ class PostService{
         })
         return(comment);
     }
+    getCountLike = async () => {
+        const posts = await this.postRepository.find(Post)
+        for (const post of posts) {
+            const likesCount = await AppDataSource
+                .getRepository(Likes)
+                .createQueryBuilder('likes')
+                .where('likes.post = :postId', { postId: post.id })
+                .andWhere('likes.status = true')
+                .getCount();
+
+            console.log(`Post ${post.id} has ${likesCount} likes.`);
+            return likesCount
+        }
 
 
-
+    }
 }
+
+
 
 export default new PostService();

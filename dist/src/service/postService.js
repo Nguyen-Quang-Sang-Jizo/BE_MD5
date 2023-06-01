@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Post_1 = require("../models/Post");
 const data_source_1 = require("../configs/data-source");
 const typeorm_1 = require("typeorm");
+const Like_1 = require("../models/Like");
 class PostService {
     constructor() {
         this.getAll = async () => {
@@ -89,7 +90,21 @@ class PostService {
             });
             return (comment);
         };
+        this.getCountLike = async () => {
+            const posts = await this.postRepository.find(Post_1.Post);
+            for (const post of posts) {
+                const likesCount = await data_source_1.AppDataSource
+                    .getRepository(Like_1.Likes)
+                    .createQueryBuilder('likes')
+                    .where('likes.post = :postId', { postId: post.id })
+                    .andWhere('likes.status = true')
+                    .getCount();
+                console.log(`Post ${post.id} has ${likesCount} likes.`);
+                return likesCount;
+            }
+        };
         this.postRepository = data_source_1.AppDataSource.getRepository(Post_1.Post);
+        this.likeRepository = data_source_1.AppDataSource.getRepository(Like_1.Likes);
     }
 }
 exports.default = new PostService();

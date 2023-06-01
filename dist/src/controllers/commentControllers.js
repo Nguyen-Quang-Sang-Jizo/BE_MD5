@@ -37,10 +37,10 @@ class CommentControllers {
                 });
             }
         };
-        this.showComment = async (req, res) => {
+        this.showCommentById = async (req, res) => {
             try {
                 let id = req.params.id;
-                let comment = await this.commentService.findByIdComments(id);
+                let comment = await this.commentService.findCommentByIdPost(id);
                 res.status(200).json(comment);
             }
             catch (e) {
@@ -63,20 +63,6 @@ class CommentControllers {
                 console.log("error in removeComment:", e);
                 res.status(400).json({
                     message: 'error in removeComment',
-                    success: false
-                });
-            }
-        };
-        this.findIdComments = async (req, res) => {
-            try {
-                let id = req.params.id;
-                let comment = await this.commentService.findByIdCommentss(id);
-                res.status(200).json(comment);
-            }
-            catch (e) {
-                console.log("error in findIdComment:", e);
-                res.status(400).json({
-                    message: 'error in findIdComment',
                     success: false
                 });
             }

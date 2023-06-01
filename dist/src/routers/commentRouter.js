@@ -9,9 +9,8 @@ const auth_1 = require("../middleware/auth");
 const commentRouter = (0, express_1.Router)();
 commentRouter.get('/', commentControllers_1.default.showAll);
 commentRouter.post('/', auth_1.auth, commentControllers_1.default.createComment);
-commentRouter.get('/:id', commentControllers_1.default.showComment);
+commentRouter.get('/:id', commentControllers_1.default.showCommentById);
 commentRouter.delete('/:id', commentControllers_1.default.removeComment);
-commentRouter.get('/find/:id', commentControllers_1.default.findIdComments);
 commentRouter.put('/:id', commentControllers_1.default.editComment);
 exports.default = commentRouter;
 //# sourceMappingURL=commentRouter.js.map

@@ -7,7 +7,7 @@ declare class CommentService {
     showDetailComments: (id: any) => Promise<any>;
     removeOneComment: (id: any) => Promise<void>;
     deleteComment: (id: any) => Promise<void>;
-    findByIdComments: (id: any) => Promise<any>;
+    findCommentByIdPost: (id: any) => Promise<any>;
     updateComment: (id: any, newComment: any) => Promise<void>;
 }
 declare const _default: CommentService;
