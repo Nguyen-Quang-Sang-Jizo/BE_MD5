@@ -17,24 +17,6 @@ class CommentService{
         });
         return comments;
     }
-<<<<<<< HEAD
-      addComment= (contents, userId, postId) => {
-          const comment = {
-            contents,
-            userId,
-            postId,
-          };
-      
-          const newComment =  this.commentRepository.save(comment);
-      
-          return newComment;
-        }
-      
-     
-    
-      
-      
-=======
     addComment = async (comment, user, postId) =>{
         console.log('dang o add comment')
         let newComment = {
@@ -64,7 +46,6 @@ class CommentService{
         return await this.commentRepository.save(data)
     }
 
->>>>>>> 7f3037b9730a2ab51aa30d6312abe6106500e224
     // dùng để xóa comment , dùng cho cả admin và user
     showDetailComments = async (id) => {
         let comment = await this.commentRepository.find(

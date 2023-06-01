@@ -26,7 +26,12 @@ class ImageController {
                 await this.imageService.deleteOneImage(id);
                 res.status(200).json('xoa thanh cong');
             }
-            finally {
+            catch (e) {
+                console.log("error in deleteOne:", e);
+                res.status(400).json({
+                    message: 'error in deleteOne',
+                    success: false
+                });
             }
         };
         this.imageService = imageService_1.default;

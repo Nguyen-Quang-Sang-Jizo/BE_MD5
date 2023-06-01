@@ -26,7 +26,14 @@ class ImageController {
         let id = req.params.id
         await this.imageService.deleteOneImage(id)
         res.status(200).json('xoa thanh cong')
+    }catch(e){
+        console.log("error in deleteOne:",e )
+        res.status(400).json({
+            message: 'error in deleteOne',
+            success: false
+        })
     }
+}
 }
 
 export default new ImageController();

@@ -34,7 +34,7 @@ const routers_1 = __importDefault(require("./src/routers"));
 const dotenv = __importStar(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const process = __importStar(require("process"));
-const PORT = 3000;
+const PORT = 3001;
 const app = (0, express_1.default)();
 dotenv.config();
 app.use(body_parser_1.default.json());

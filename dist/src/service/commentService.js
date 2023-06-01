@@ -13,14 +13,21 @@ class CommentService {
             });
             return comments;
         };
-        this.addComment = (contents, userId, postId) => {
-            const comment = {
-                contents,
-                userId,
-                postId,
+        this.addComment = async (comment, user, postId) => {
+            console.log('dang o add comment');
+            let newComment = {
+                contents: comment.contents,
+                date_created: comment.date_created,
+                user: user,
+                post: {
+                    where: { id: postId }
+                }
             };
-            const newComment = this.commentRepository.save(comment);
-            return newComment;
+            return (await this.commentRepository.save(newComment));
+        };
+        this.addCommentByUser = async (data) => {
+            console.log('-----dang o addComment');
+            return await this.commentRepository.save(data);
         };
         this.showDetailComments = async (id) => {
             let comment = await this.commentRepository.find({ where: { post: { id: id } },
