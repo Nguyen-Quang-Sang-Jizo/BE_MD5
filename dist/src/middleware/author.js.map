@@ -1,0 +1,1 @@
+{"version":3,"file":"author.js","sourceRoot":"","sources":["../../../src/middleware/author.ts"],"names":[],"mappings":";;;AAAO,MAAM,SAAS,GAAG,CAAC,GAAG,EAAE,GAAG,EAAE,IAAI,EAAE,EAAE;IACxC,IAAG,GAAG,CAAC,MAAM,CAAC,IAAI,KAAK,OAAO;QAAE,OAAO,IAAI,EAAE,CAAC;SACzC;QACD,GAAG,CAAC,IAAI,CAAC,oBAAoB,CAAC,CAAA;KACjC;AACL,CAAC,CAAA;AALY,QAAA,SAAS,aAKrB"}
