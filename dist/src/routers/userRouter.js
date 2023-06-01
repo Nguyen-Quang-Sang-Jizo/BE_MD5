@@ -9,7 +9,6 @@ const auth_1 = require("../middleware/auth");
 const userRouter = express_1.default.Router();
 userRouter.post('/register', userControllers_1.default.register);
 userRouter.post('/login', userControllers_1.default.login);
-userRouter.get('/friends', auth_1.auth, userControllers_1.default.getMany);
 userRouter.get('/:id', userControllers_1.default.findUser);
 userRouter.put('/:id', userControllers_1.default.personalInformation);
 userRouter.delete('/:id', userControllers_1.default.removeUser);

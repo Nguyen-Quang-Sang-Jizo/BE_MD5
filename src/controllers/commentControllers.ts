@@ -39,12 +39,12 @@ class CommentControllers{
         })
     }
     }
-    showComment = async (req: Request, res: Response) => {
+    showCommentById = async (req: Request, res: Response) => {
         try{
-        let id = req.params.id;
-       let comment = await this.commentService.findByIdComments(id)
+            let id = req.params.id;
+            let comment = await this.commentService.findCommentByIdPost(id)
         res.status(200).json(comment)
-    }catch(e){
+        }catch(e){
         console.log("error in showComment:",e )
         res.status(400).json({
             message: 'error in showComment',
@@ -65,21 +65,7 @@ class CommentControllers{
         res.status(400).json({
             message: 'error in removeComment',
             success: false
-        })
-    }
-    }
-    findIdComments = async (req: Request, res: Response) => {
-        try{
-        let id = req.params.id;
-        let comment = await this.commentService.findByIdCommentss(id);
-        res.status(200).json(comment)
-    }catch(e){
-        console.log("error in findIdComment:",e )
-        res.status(400).json({
-            message: 'error in findIdComment',
-            success: false
-        })
-    }
+        })}
     }
 
     editComment = async (req: Request, res: Response) => {

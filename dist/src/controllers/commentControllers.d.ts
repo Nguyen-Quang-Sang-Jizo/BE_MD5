@@ -6,9 +6,8 @@ declare class CommentControllers {
     constructor();
     createComment: (req: Request, res: Response) => Promise<void>;
     showAll: (req: Request, res: Response) => Promise<void>;
-    showComment: (req: Request, res: Response) => Promise<void>;
+    showCommentById: (req: Request, res: Response) => Promise<void>;
     removeComment: (req: Request, res: Response) => Promise<void>;
-    findIdComments: (req: Request, res: Response) => Promise<void>;
     editComment: (req: Request, res: Response) => Promise<void>;
 }
 declare const _default: CommentControllers;

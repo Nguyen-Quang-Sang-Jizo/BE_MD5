@@ -21,22 +21,6 @@ class UserControllers{
         }
 
     }
-    getMany = async (req: Request, res: Response) => {
-        try{
-        console.log("get friends with user Id:", req['decode'].idUser)
-        let listFriend = await this.userService.getFriend(req['decode'].idUser);
-        console.log(listFriend)
-        res.status(200).json(listFriend);
-        }catch(e){
-            console.log("error in getMany:",e )
-            res.status(400).json({
-                message: 'error in getMany',
-                success: false
-            })
-        }
-
-    }
-
     register = async (req: Request, res: Response) => {
         try{
         let listUser = await this.userService.getUser();
@@ -55,12 +39,8 @@ class UserControllers{
             res.status(400).json({
                 message: 'error in register',
                 success: false
-            })
-     }
+            })}
     }
-
-
-
     login = async (req: Request, res: Response) => {
         try{
             let resultCheck = await this.userService.checkUser(req.body);
@@ -71,9 +51,7 @@ class UserControllers{
             res.status(400).json({
                 message: 'error in signup',
                 success: false
-            })
-        }
-
+            })}
     }
     personalInformation = async (req:Request, res: Response) => {
         try{
@@ -88,10 +66,8 @@ class UserControllers{
         res.status(400).json({
             message: 'error in personalInformation',
             success: false
-        })
+        })}
     }
-    }
-
     findUser = async (req: Request, res: Response) => {
         try{
         let id = req.params.id;
@@ -105,8 +81,6 @@ class UserControllers{
             })
         }
     }
-
-
     findIdUser = async (req: Request, res: Response) => {
         try{
         let username = req.params.username;
@@ -120,7 +94,6 @@ class UserControllers{
             })
         }
     }
-
     removeUser = async (req: Request, res: Response) => {
         try{
         let id = req.params.id;
@@ -133,10 +106,8 @@ class UserControllers{
         res.status(400).json({
             message: 'error in removeUser',
             success: false
-        })
+        })}
     }
-    }
-
     deleteUsers = async (req: Request, res: Response) => {
         try{
         let id = req.params.id;
@@ -144,15 +115,12 @@ class UserControllers{
         res.status(200).json({
             message: 'Delete success'
         })
-    }catch(e){
+        }catch(e){
         console.log("error in deleteUsers:",e )
         res.status(400).json({
             message: 'error in deleteUsers',
             success: false
-        })
-    }
-    }
-
+        })}}
     searchUsername = async (req: Request, res: Response) => {
         try{
         let username = req.params.name;
@@ -164,9 +132,7 @@ class UserControllers{
             message: 'error in searchUsername',
             success: false
         })
-    }
-    }
-
+    }}
 
 }
 

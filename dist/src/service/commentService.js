@@ -48,13 +48,15 @@ class CommentService {
                 .where("post = :post", { post: id })
                 .execute();
         };
-        this.findByIdComments = async (id) => {
-            return await this.commentRepository.findOne({
+        this.findCommentByIdPost = async (id) => {
+            return await this.commentRepository.find({
                 relations: {
-                    user: true,
-                    post: true
+                    post: {
+                        id: true
+                    }
                 },
-                where: { post: { id: id } }
+                where: { post: { id: id } },
+                order: { date_created: 'ASC' }
             });
         };
         this.updateComment = async (id, newComment) => {

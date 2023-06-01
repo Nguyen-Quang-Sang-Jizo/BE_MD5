@@ -1,5 +1,6 @@
 declare class PostService {
     private postRepository;
+    private likeRepository;
     constructor();
     getAll: () => Promise<any>;
     getAllByIdUser: () => Promise<any>;
@@ -10,6 +11,7 @@ declare class PostService {
     updatePost: (id: any, post: any) => Promise<void>;
     searchP: (title: any) => Promise<any>;
     classifyPost: (id: any) => Promise<any>;
+    getCountLike: () => Promise<number>;
 }
 declare const _default: PostService;
 export default _default;

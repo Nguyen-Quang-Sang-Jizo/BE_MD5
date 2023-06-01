@@ -67,6 +67,19 @@ class LikeController {
                 });
             }
         };
+        this.countLike = async (req, res) => {
+            try {
+                let count = await this.postService.getCountLike();
+                res.status(200).json(count);
+            }
+            catch (e) {
+                console.log("error in getAllLike:", e);
+                res.status(400).json({
+                    message: 'error in getAllLike',
+                    success: false
+                });
+            }
+        };
         this.postService = postService_1.default;
         this.categoryService = categoryService_1.default;
         this.likeService = likeService_1.default;

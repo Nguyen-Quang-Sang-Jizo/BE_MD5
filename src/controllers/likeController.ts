@@ -23,8 +23,7 @@ class LikeController {
             message: 'error in getAllLike',
             success: false
         })
-    }
-    }
+    }}
     addLike = async (req: Request, res: Response) => {
         try{
         let userId = parseInt(req["decode"].idUser)
@@ -37,8 +36,7 @@ class LikeController {
             message: 'error in addLike',
             success: false
         })
-    }
-    }
+    }}
 
     deleteLike = async (req: Request, res: Response) => {
         try{
@@ -53,8 +51,7 @@ class LikeController {
             message: 'error in deleteLike',
             success: false
         })
-    }
-    }
+    }}
     detailLike = async (req: Request, res: Response) => {
         try{
         let id = req.params.id;
@@ -67,8 +64,20 @@ class LikeController {
             message: 'error in detailLike',
             success: false
         })
-    }
-    }
+    }}
+
+    countLike = async (req: Request, res: Response) => {
+        try{
+            // let id = req.params.id
+            let count = await this.postService.getCountLike()
+            res.status(200).json(count)
+        }catch(e){
+            console.log("error in getAllLike:",e )
+            res.status(400).json({
+                message: 'error in getAllLike',
+                success: false
+            })
+        }}
 }
 
 export default new LikeController();
