@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Post_1 = require("../models/Post");
 const data_source_1 = require("../configs/data-source");
 const typeorm_1 = require("typeorm");
+const Like_1 = require("../models/Like");
 class PostService {
     constructor() {
         this.getAll = async () => {
@@ -11,9 +12,10 @@ class PostService {
                     category: true,
                     author: true,
                     image: true,
+                    like: true,
                     comments: {
                         user: true
-                    },
+                    }
                 },
                 select: {
                     comments: {
@@ -23,6 +25,12 @@ class PostService {
                             password: false
                         },
                         contents: true
+                    },
+                    author: {
+                        id: true,
+                        image: true,
+                        username: true,
+                        password: false
                     }
                 }
             });
@@ -55,7 +63,8 @@ class PostService {
             await this.postRepository.delete(id);
         };
         this.findByIdPost = async (id) => {
-            let post = await this.postRepository.findOne({ where: { id: id },
+            let post = await this.postRepository.findOne({
+                where: { id: id },
                 relations: {
                     author: true,
                     category: true,
@@ -93,7 +102,8 @@ class PostService {
             return posts;
         };
         this.classifyPost = async (id) => {
-            let comment = await this.postRepository.find({ where: { category: { id: id } },
+            let comment = await this.postRepository.find({
+                where: { category: { id: id } },
                 relations: {
                     category: true,
                     author: true
@@ -105,7 +115,7 @@ class PostService {
             const posts = await this.postRepository.find(Post_1.Post);
             for (const post of posts) {
                 const likesCount = await data_source_1.AppDataSource
-                    .getRepository(typeorm_1.Like)
+                    .getRepository(Like_1.Likes)
                     .createQueryBuilder('likes')
                     .where('likes.post = :postId', { postId: post.id })
                     .andWhere('likes.status = true')
@@ -115,6 +125,7 @@ class PostService {
             }
         };
         this.postRepository = data_source_1.AppDataSource.getRepository(Post_1.Post);
+        this.likeRepository = data_source_1.AppDataSource.getRepository(Like_1.Likes);
     }
 }
 exports.default = new PostService();

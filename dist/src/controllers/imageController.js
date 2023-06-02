@@ -7,14 +7,32 @@ const imageService_1 = __importDefault(require("../service/imageService"));
 class ImageController {
     constructor() {
         this.deleteImage = async (req, res) => {
-            let id = req.params.id;
-            await this.imageService.deleteImageById(id);
-            res.status(200).json('xoa thanh cong');
+            try {
+                let id = req.params.id;
+                await this.imageService.deleteImageById(id);
+                res.status(200).json('xoa thanh cong');
+            }
+            catch (e) {
+                console.log("error in deleteInmage:", e);
+                res.status(400).json({
+                    message: 'error in deleteInmage',
+                    success: false
+                });
+            }
         };
         this.deleteOne = async (req, res) => {
-            let id = req.params.id;
-            await this.imageService.deleteOneImage(id);
-            res.status(200).json('xoa thanh cong');
+            try {
+                let id = req.params.id;
+                await this.imageService.deleteOneImage(id);
+                res.status(200).json('xoa thanh cong');
+            }
+            catch (e) {
+                console.log("error in deleteOne:", e);
+                res.status(400).json({
+                    message: 'error in deleteOne',
+                    success: false
+                });
+            }
         };
         this.imageService = imageService_1.default;
     }

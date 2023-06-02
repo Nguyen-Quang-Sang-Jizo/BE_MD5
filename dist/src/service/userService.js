@@ -13,7 +13,6 @@ const typeorm_1 = require("typeorm");
 const Friend_1 = require("../models/Friend");
 class UserService {
     constructor() {
-        this.friendRepository = data_source_1.AppDataSource.getRepository(Friend_1.Friend);
         this.getUser = async () => {
             let user = await this.userRepository.find();
             return user;
@@ -108,8 +107,14 @@ class UserService {
                 }
             });
         };
+        this.addFriend = async (data) => {
+            return (await this.friendRepository.save(data));
+        };
+        this.showAllPending = async () => {
+        };
         this.userRepository = data_source_1.AppDataSource.getRepository(User_1.User);
         this.postRepository = data_source_1.AppDataSource.getRepository(Post_1.Post);
+        this.friendRepository = data_source_1.AppDataSource.getRepository(Friend_1.Friend);
     }
 }
 exports.default = new UserService();

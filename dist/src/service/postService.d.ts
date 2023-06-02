@@ -1,5 +1,6 @@
 declare class PostService {
     private postRepository;
+    private likeRepository;
     constructor();
     getAll: () => Promise<any>;
     getAllByIdUser: () => Promise<any>;

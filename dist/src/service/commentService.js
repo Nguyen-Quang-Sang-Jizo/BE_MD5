@@ -29,7 +29,7 @@ class CommentService {
             console.log('-----dang o addComment');
             return await this.commentRepository.save(data);
         };
-        this.showCommentsByIdPost = async (id) => {
+        this.showDetailComments = async (id) => {
             let comment = await this.commentRepository.find({ where: { post: { id: id } },
                 relations: {
                     post: true,
@@ -49,14 +49,23 @@ class CommentService {
                 .where("post = :post", { post: id })
                 .execute();
         };
-        this.showDetailComments = async (id) => {
-            let comment = await this.commentRepository.find({ where: { post: { id: id } },
+        this.findCommentByIdPost = async (id) => {
+            return await this.commentRepository.find({
                 relations: {
-                    post: true,
+                    post: {
+                        id: true
+                    },
                     user: true
+                },
+                where: { post: { id: id } },
+                order: { date_created: 'ASC' },
+                select: {
+                    user: {
+                        image: true,
+                        password: false
+                    }
                 }
             });
-            return (comment);
         };
         this.updateComment = async (id, newComment) => {
             await this.commentRepository.update(id, newComment);

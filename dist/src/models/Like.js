@@ -9,34 +9,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Like = void 0;
+exports.Likes = void 0;
 const typeorm_1 = require("typeorm");
 const Post_1 = require("./Post");
 const User_1 = require("./User");
-let Like = class Like {
+let Likes = class Likes {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Like.prototype, "id", void 0);
+], Likes.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(type => Post_1.Post),
+    (0, typeorm_1.ManyToOne)(type => Post_1.Post, (post) => post.like),
     __metadata("design:type", Post_1.Post)
-], Like.prototype, "post", void 0);
+], Likes.prototype, "post", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(type => User_1.User),
     __metadata("design:type", User_1.User)
-], Like.prototype, "user", void 0);
+], Likes.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Boolean)
-], Like.prototype, "status", void 0);
+], Likes.prototype, "status", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], Like.prototype, "created_at", void 0);
-Like = __decorate([
+], Likes.prototype, "created_at", void 0);
+Likes = __decorate([
     (0, typeorm_1.Entity)()
-], Like);
-exports.Like = Like;
+], Likes);
+exports.Likes = Likes;
 //# sourceMappingURL=Like.js.map

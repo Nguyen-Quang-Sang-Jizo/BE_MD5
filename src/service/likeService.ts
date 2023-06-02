@@ -1,10 +1,10 @@
-import {Like} from "../models/Like";
+import {Likes} from "../models/Like";
 import {AppDataSource} from "../configs/data-source";
 
 class LikeService{
     private likeRepository;
     constructor() {
-        this.likeRepository = AppDataSource.getRepository(Like)
+        this.likeRepository = AppDataSource.getRepository(Likes)
     }
     getAllLike = async () => {
         let likes = await this.likeRepository.find({
@@ -34,7 +34,7 @@ class LikeService{
         await this.likeRepository
             .createQueryBuilder()
             .delete()
-            .from(Like)
+            .from(Likes)
             .where("user = :userId AND post = :postId", { userId: userId, postId: postId })
             .execute();
     }
@@ -42,7 +42,7 @@ class LikeService{
     deleteAllByPostId = async (id) => {
         await this.likeRepository.createQueryBuilder()
             .delete()
-            .from(Like)
+            .from(Likes)
             .where("post = :post", { post: id })
             .execute()
     }

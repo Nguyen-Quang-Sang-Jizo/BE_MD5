@@ -3,11 +3,11 @@ import { Post } from './Post';
 import { User } from './User';
 
 @Entity()
-export class Like {
+export class Likes {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => Post)
+    @ManyToOne(type => Post,(post) => post.like)
     post: Post;
 
     @ManyToOne(type => User)

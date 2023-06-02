@@ -3,6 +3,7 @@ import { Category } from "./Category";
 import { Tag } from "./Tag";
 import { Comment } from "./Comment";
 import { Image } from "./Image";
+import { Likes } from "./Like";
 export declare class Post {
     id: number;
     title: string;
@@ -15,4 +16,5 @@ export declare class Post {
     tags: Tag[];
     comments: Comment[];
     image: Image[];
+    like: Likes;
 }

@@ -30,18 +30,18 @@ class LikeService {
             await this.likeRepository
                 .createQueryBuilder()
                 .delete()
-                .from(Like_1.Like)
+                .from(Like_1.Likes)
                 .where("user = :userId AND post = :postId", { userId: userId, postId: postId })
                 .execute();
         };
         this.deleteAllByPostId = async (id) => {
             await this.likeRepository.createQueryBuilder()
                 .delete()
-                .from(Like_1.Like)
+                .from(Like_1.Likes)
                 .where("post = :post", { post: id })
                 .execute();
         };
-        this.likeRepository = data_source_1.AppDataSource.getRepository(Like_1.Like);
+        this.likeRepository = data_source_1.AppDataSource.getRepository(Like_1.Likes);
     }
     async findCountLikeByIdPost(idPost) {
         return await this.likeRepository.find({

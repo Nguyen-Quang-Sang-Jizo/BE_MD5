@@ -17,6 +17,8 @@ declare class UserService {
     deleteAccount: (id: any) => Promise<void>;
     adminSearchUsername: (username: any) => Promise<any>;
     getFriend: (userId: any) => Promise<any>;
+    addFriend: (data: any) => Promise<any>;
+    showAllPending: () => Promise<void>;
 }
 declare const _default: UserService;
 export default _default;

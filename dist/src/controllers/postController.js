@@ -33,24 +33,45 @@ class PostControllers {
             }
         };
         this.findAllById = async (req, res) => {
-            let listPost = await this.postService.getAllByIdUser();
-            res.status(200).json(listPost);
+            try {
+                let listPost = await this.postService.getAllByIdUser();
+                res.status(200).json({
+                    data: listPost,
+                    success: true
+                });
+            }
+            catch (e) {
+                console.log("error in post controller", e);
+                res.status(500).json({
+                    message: 'get list post failed',
+                    success: false
+                });
+            }
         };
         this.addPost = async (req, res) => {
             const author = req["decode"].idUser;
             let post = req.body;
             let imageData = post.image;
             let lastPost = await this.postService.addPostByUser(post, author);
-            await imageService_1.default.addImage(lastPost.id, imageData);
-            if (!req.body.title) {
-                res.status(400).json({
-                    message: 'title missing'
-                });
-                res.end();
+            try {
+                await imageService_1.default.addImage(lastPost.id, imageData);
+                if (!req.body.title) {
+                    res.status(400).json({
+                        message: 'title missing'
+                    });
+                    res.end();
+                }
+                else {
+                    res.status(201).json({
+                        message: 'OK'
+                    });
+                }
             }
-            else {
-                res.status(201).json({
-                    message: 'OK'
+            catch (e) {
+                console.log("error add post", e);
+                res.status(500).json({
+                    message: 'post failed',
+                    success: false
                 });
             }
         };
@@ -60,37 +81,90 @@ class PostControllers {
             console.log(postEdit);
             let imageData = postEdit.image;
             console.log(imageData);
-            await this.imageService.upDateImage(postId, imageData);
-            await this.postService.updatePost(postId, postEdit);
-            res.status(200).json({
-                message: "Edit success"
-            });
+            try {
+                await this.imageService.upDateImage(postId, imageData);
+                await this.postService.updatePost(postId, postEdit);
+                res.status(200).json({
+                    message: "Edit success"
+                });
+            }
+            catch (e) {
+                console.log("error edit post", e);
+                res.status(500).json({
+                    message: 'edit post failed',
+                    success: false
+                });
+            }
         };
         this.removePost = async (req, res) => {
             let id = req.params.id;
-            console.log(id);
-            await this.commentService.deleteComment(id);
-            await this.likeService.deleteAllByPostId(id);
-            await this.imageService.deleteAllImageByPostId(id);
-            await this.postService.deletePost(id);
-            res.status(200).json({
-                message: 'Delete success'
-            });
+            try {
+                await this.commentService.deleteComment(id);
+                await this.likeService.deleteAllByPostId(id);
+                await this.imageService.deleteAllImageByPostId(id);
+                await this.postService.deletePost(id);
+                res.status(200).json({
+                    message: 'Delete success'
+                });
+            }
+            catch (e) {
+                console.log("error edit post", e);
+                res.status(500).json({
+                    message: 'remove post failed',
+                    success: false
+                });
+            }
         };
         this.findId = async (req, res) => {
             let id = req.params.id;
-            let post = await this.postService.findByIdPost(id);
-            res.status(200).json(post);
+            try {
+                let post = await this.postService.findByIdPost(id);
+                res.status(200).json({
+                    data: post,
+                    success: true
+                });
+            }
+            catch (e) {
+                console.log("error find id in post controller", e);
+                res.status(500).json({
+                    message: 'id not found',
+                    success: false
+                });
+            }
         };
         this.postSearch = async (req, res) => {
             let titleSearch = req.params.name;
-            let post = await this.postService.searchP(titleSearch);
-            res.status(200).json(post);
+            try {
+                let post = await this.postService.searchP(titleSearch);
+                res.status(200).json({
+                    data: post,
+                    success: true
+                });
+            }
+            catch (e) {
+                console.log("error search post by name", e);
+                res.status(500).json({
+                    message: 'name not found',
+                    success: false
+                });
+            }
         };
         this.postClassify = async (req, res) => {
             let id = req.params.id;
-            let category = await this.postService.classifyPost(id);
-            res.status(200).json(category);
+            try {
+                let category = await this.postService.classifyPost(id);
+                res.status(200).json({
+                    data: category,
+                    success: true
+                });
+            }
+            catch (e) {
+                console.log("error postClassify", e);
+                res.status(500).json({
+                    message: 'can not found',
+                    success: false
+                });
+            }
         };
         this.postService = postService_1.default;
         this.categoryService = categoryService_1.default;

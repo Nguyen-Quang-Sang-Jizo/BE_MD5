@@ -1,12 +1,7 @@
 import "reflect-metadata";
-import {User} from "../models/User";
-import {Category} from "../models/Category";
+
 import {DataSource} from "typeorm";
-import { Post } from "../models/Post";
-import { Tag } from "../models/Tag";
-import { Comment } from "../models/Comment";
-import { Like } from "../models/Like";
-import { Image } from "../models/Image";
+
 
 const AppDataSource = new DataSource({
     type: "mysql",
