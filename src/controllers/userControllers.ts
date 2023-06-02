@@ -60,6 +60,7 @@ class UserControllers{
     }
 
     findUser = async (req: Request, res: Response) => {
+        console.log('da vao day')
         let id = req.params.id;
         let user = await this.userService.findIdUsers(id);
         res.status(200).json(user)

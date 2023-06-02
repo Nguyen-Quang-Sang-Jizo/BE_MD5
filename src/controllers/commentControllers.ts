@@ -25,7 +25,7 @@ class CommentControllers{
     }
     showComment = async (req: Request, res: Response) => {
         let id = req.params.id;
-       let comment = await this.commentService.findByIdComments(id)
+       let comment = await this.commentService.showCommentsByIdPost(id)
         res.status(200).json(comment)
     }
 

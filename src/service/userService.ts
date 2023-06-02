@@ -72,7 +72,7 @@ class UserService{
     findIdUsers = async (id) => {
         let post = await this.userRepository.findOne({where: {id: id},
         })
-        return(post);
+        return post;
     }
     deleteAccount = async (id) => {
         await this.userRepository.delete(id);

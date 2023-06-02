@@ -10,11 +10,24 @@ class PostService{
 
     getAll = async () => {
         let posts = await this.postRepository.find({
-            relations:{
+            relations: {
                 category: true,
                 author: true,
                 image: true,
-                comments: true
+                comments: {
+                    user: true
+                },
+
+            },
+            select: {
+                comments: {
+                    user: {
+                        image: true,
+                        username : true,
+                        password: false
+                    },
+                    contents: true
+                }
             }
         });
         return posts;
@@ -104,6 +117,21 @@ class PostService{
             }
         })
         return(comment);
+    }
+
+    getCountLike = async () => {
+        const posts = await this.postRepository.find(Post)
+        for (const post of posts) {
+            const likesCount = await AppDataSource
+                .getRepository(Like)
+                .createQueryBuilder('likes')
+                .where('likes.post = :postId', {postId: post.id})
+                .andWhere('likes.status = true')
+                .getCount();
+
+            console.log(`Post ${post.id} has ${likesCount} likes.`);
+            return likesCount
+        }
     }
 
 

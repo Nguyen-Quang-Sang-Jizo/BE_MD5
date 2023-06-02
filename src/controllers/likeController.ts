@@ -37,6 +37,19 @@ class LikeController {
         console.log(like)
         res.status(200).json(like)
     }
+
+    async  countLike (req: Request, res: Response) {
+        try{
+            let id = req.params.id
+            let count = await this.likeService.findCountLikeByIdPost(id)
+            res.status(200).json(count)
+        }catch(e){
+            console.log("error in getAllLike:",e )
+            res.status(400).json({
+                message: 'error in countLike',
+                success: false
+            })
+        }}
 }
 
 export default new LikeController();

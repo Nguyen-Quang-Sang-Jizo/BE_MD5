@@ -46,13 +46,14 @@ class CommentService{
     }
 
     // dùng để xóa comment , dùng cho cả admin và user
-    showDetailComments = async (id) => {
+    showCommentsByIdPost = async (id) => {
         let comment = await this.commentRepository.find(
             {where: {post: {id: id}},
             relations:{
                 post: true,
-                user: true
-            }
+                user: true,
+            },
+                order: {date_created: "ASC"}
         })
         return(comment);
     }
@@ -68,14 +69,15 @@ class CommentService{
             .execute()
     }
 
-    findByIdComments = async (id) => {
-        return await this.commentRepository.findOne({
-            relations: {
-                user: true,
-                post: true
-            },
-            where: {post: {id: id}}
-        })
+    showDetailComments = async (id) => {
+        let comment = await this.commentRepository.find(
+            {where: {post: {id: id}},
+                relations:{
+                    post: true,
+                    user: true
+                }
+            })
+        return(comment);
     }
 
     updateComment = async (id, newComment) => {

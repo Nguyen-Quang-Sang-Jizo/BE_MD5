@@ -8,4 +8,7 @@ likeRouter.get('/' , likeControllers.getAll);
 likeRouter.post('/', auth, likeControllers.addLike)
 likeRouter.delete('/post/:id', auth,likeControllers.deleteLike);
 likeRouter.get('/:id', auth, likeControllers.detailLike);
+likeRouter.get('/count/:id', auth, (req, res, next) => {
+    likeControllers.countLike(req,res)
+});
 export default likeRouter

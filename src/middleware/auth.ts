@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const SECRET = '123456'
 export const auth = (req, res, next) => {
+    console.log('da vao auth')
     let authorization = req.headers.authorization;
     if(authorization){
         let accessToken = req.headers.authorization.split(' ')[1];
@@ -14,7 +15,6 @@ export const auth = (req, res, next) => {
                     })
                 }else {
                     req.decode = payload;
-                    console.log(req.decode)
                     next();
                 }
             })

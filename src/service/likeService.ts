@@ -1,6 +1,5 @@
 import {Like} from "../models/Like";
 import {AppDataSource} from "../configs/data-source";
-import {Comment} from "../models/Comment";
 
 class LikeService{
     private likeRepository;
@@ -16,6 +15,8 @@ class LikeService{
         });
         return likes;
     }
+
+
     addLikeByUser = async (data) => {
         await this.likeRepository.save(data);
     }
@@ -44,6 +45,20 @@ class LikeService{
             .from(Like)
             .where("post = :post", { post: id })
             .execute()
+    }
+
+    async findCountLikeByIdPost (idPost) {
+        return await this.likeRepository.find({
+            where: {
+                post: {
+                    id: idPost // post một object, chứa các trường của post, khi manytoone sẽ là 1 đối tượng, onetomany sẽ là một mảng
+                },
+                status: true
+            },
+            relations: {
+                user: true
+            }
+        });
     }
 }
 
