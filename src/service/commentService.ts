@@ -73,10 +73,17 @@ class CommentService{
             relations: {
                 post: {
                     id: true
-                }
+                },
+                user: true
             },
             where: {post: {id: id}},
-            order: {date_created: 'ASC'}
+            order: {date_created: 'ASC'},
+            select: {
+                user: {
+                    image: true,
+                    password: false
+                }
+            }
         })
     }
 

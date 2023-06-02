@@ -20,7 +20,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Likes.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(type => Post_1.Post),
+    (0, typeorm_1.ManyToOne)(type => Post_1.Post, (post) => post.like),
     __metadata("design:type", Post_1.Post)
 ], Likes.prototype, "post", void 0);
 __decorate([

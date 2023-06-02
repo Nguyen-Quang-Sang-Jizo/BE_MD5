@@ -16,6 +16,7 @@ const Category_1 = require("./Category");
 const Tag_1 = require("./Tag");
 const Comment_1 = require("./Comment");
 const Image_1 = require("./Image");
+const Like_1 = require("./Like");
 let Post = class Post {
 };
 __decorate([
@@ -63,6 +64,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => Image_1.Image, image => image.post),
     __metadata("design:type", Array)
 ], Post.prototype, "image", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Like_1.Likes, like => like.post),
+    __metadata("design:type", Array)
+], Post.prototype, "like", void 0);
 Post = __decorate([
     (0, typeorm_1.Entity)()
 ], Post);

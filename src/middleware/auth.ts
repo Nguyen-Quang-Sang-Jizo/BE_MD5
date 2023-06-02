@@ -14,6 +14,7 @@ export const auth = (req, res, next) => {
                     })
                 }else {
                     req.decode = payload;
+
                     next();
                 }
             })

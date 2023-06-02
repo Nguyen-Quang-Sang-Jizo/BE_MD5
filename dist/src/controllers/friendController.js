@@ -23,7 +23,8 @@ class FriendController {
         };
         this.newFriend = async (req, res) => {
             try {
-                console.log(req.body);
+                let id = parseInt(req["decode"].idUser);
+                req.body.user = id;
                 let data = req.body;
                 let friend = await this.userService.addFriend(data);
                 res.status(200).json(friend);

@@ -4,6 +4,7 @@ import { Category } from "./Category";
 import { Tag } from "./Tag";
 import { Comment } from "./Comment";
 import { Image } from "./Image";
+import {Likes} from "./Like";
 
 @Entity()
 export class Post {
@@ -38,7 +39,8 @@ export class Post {
 
     @OneToMany(() => Comment, comment => comment.post)
     public comments: Comment[];
-
     @OneToMany(() => Image, image => image.post)
     public image: Image[];
+    @OneToMany(() => Likes, like => like.post)
+    public like: Likes[];
 }

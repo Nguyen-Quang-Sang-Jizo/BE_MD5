@@ -3,20 +3,34 @@ import {AppDataSource} from "../configs/data-source";
 import {Like} from "typeorm";
 import {Likes} from "../models/Like";
 
-class PostService{
+class PostService {
     private postRepository;
     private likeRepository;
+
     constructor() {
         this.postRepository = AppDataSource.getRepository(Post)
         this.likeRepository = AppDataSource.getRepository(Likes)
     }
+
     getAll = async () => {
         let posts = await this.postRepository.find({
-            relations:{
+            relations: {
                 category: true,
                 author: true,
                 image: true,
-                comments: true
+                like: true,
+                comments: {
+                    user: true
+                }
+            },
+            select: {
+                comments: {
+                    user: {
+                        image: true,
+                        password: false
+                    },
+                    contents: true
+                }
             }
         });
         return posts;
@@ -32,7 +46,7 @@ class PostService{
             }
         })
     }
-    addPostByUser = async (post, author) =>{
+    addPostByUser = async (post, author) => {
         //
         let newPost = {
             title: post.title,
@@ -51,21 +65,22 @@ class PostService{
     }
 
     findByIdPost = async (id) => {
-        let post = await this.postRepository.findOne({where: {id: id},
-            relations:{
+        let post = await this.postRepository.findOne({
+            where: {id: id},
+            relations: {
                 author: true,
                 category: true,
                 image: true
             }
         })
-        return(post);
+        return (post);
     }
 
     findLastPost = async () => {
         console.log(1)
         const firstItem = await this.postRepository.find()
-            // .take(1) // Giới hạn kết quả trả về chỉ 1 phần tử
-            // .getOne();
+        // .take(1) // Giới hạn kết quả trả về chỉ 1 phần tử
+        // .getOne();
 
         console.log(firstItem)
         return firstItem
@@ -78,9 +93,9 @@ class PostService{
             .set({
                 title: post.title,
                 content: post.content,
-                status:  post.status,
+                status: post.status,
             })
-            .where("id = :id", { id: id })
+            .where("id = :id", {id: id})
             .execute()
         console.log(newPost)
         // return newPost
@@ -98,14 +113,15 @@ class PostService{
     }
 
     classifyPost = async (id) => {
-        let comment = await this.postRepository.find({where: {category: {id: id}},
-            relations:{
+        let comment = await this.postRepository.find({
+            where: {category: {id: id}},
+            relations: {
                 category: true,
                 author: true
 
             }
         })
-        return(comment);
+        return (comment);
     }
     getCountLike = async () => {
         const posts = await this.postRepository.find(Post)
@@ -113,18 +129,15 @@ class PostService{
             const likesCount = await AppDataSource
                 .getRepository(Likes)
                 .createQueryBuilder('likes')
-                .where('likes.post = :postId', { postId: post.id })
+                .where('likes.post = :postId', {postId: post.id})
                 .andWhere('likes.status = true')
                 .getCount();
 
             console.log(`Post ${post.id} has ${likesCount} likes.`);
             return likesCount
         }
-
-
     }
 }
-
 
 
 export default new PostService();

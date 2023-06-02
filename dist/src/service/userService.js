@@ -108,13 +108,7 @@ class UserService {
             });
         };
         this.addFriend = async (data) => {
-            console.log('-----add friend');
-            let newFriend = {
-                friend_One: data.friend_One,
-                friend_Two: data.friend_Two,
-            };
-            console.log(newFriend);
-            return (await this.friendRepository.save(newFriend));
+            return (await this.friendRepository.save(data));
         };
         this.showAllPending = async () => {
         };

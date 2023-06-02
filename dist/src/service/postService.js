@@ -12,7 +12,19 @@ class PostService {
                     category: true,
                     author: true,
                     image: true,
-                    comments: true
+                    like: true,
+                    comments: {
+                        user: true
+                    }
+                },
+                select: {
+                    comments: {
+                        user: {
+                            image: true,
+                            password: false
+                        },
+                        contents: true
+                    }
                 }
             });
             return posts;
@@ -44,7 +56,8 @@ class PostService {
             await this.postRepository.delete(id);
         };
         this.findByIdPost = async (id) => {
-            let post = await this.postRepository.findOne({ where: { id: id },
+            let post = await this.postRepository.findOne({
+                where: { id: id },
                 relations: {
                     author: true,
                     category: true,
@@ -82,7 +95,8 @@ class PostService {
             return posts;
         };
         this.classifyPost = async (id) => {
-            let comment = await this.postRepository.find({ where: { category: { id: id } },
+            let comment = await this.postRepository.find({
+                where: { category: { id: id } },
                 relations: {
                     category: true,
                     author: true
