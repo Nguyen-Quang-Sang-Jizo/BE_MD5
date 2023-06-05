@@ -8,6 +8,7 @@ import commentService from "../service/commentService";
 import imageService from "../service/imageService";
 
 
+
 class PostControllers {
     private postService;
     private categoryService;
@@ -26,7 +27,6 @@ class PostControllers {
     }
 
     findAll = async (req: Request, res: Response) => {
-        console.log(292929229)
         try{
             let listPosts = await postService.getAll();
             const publicPosts = listPosts.filter(post => post.status === 'public');
@@ -38,7 +38,20 @@ class PostControllers {
             if ( req["decode"].role === 'admin') {
                 return res.json(listPosts);
             } else {
-                return res.json(data);
+                const newData = data.map(post=>{
+                   post.image = post.image.map(image=>{
+                        image.imageURL = 'http://localhost:3001/' + image.imageURL
+                        return image
+                    })
+                    return post
+                })
+
+                // data.map(item=>{
+                //     let newUrl= 'http://localhost:3001/public/' + item.image.toString()
+                //     item.image[0] = newUrl
+                // })
+
+                return res.json(newData);
             }
         }catch (e){
             console.log('errr', e)
@@ -64,22 +77,22 @@ class PostControllers {
         }
     }
     addPost = async (req: Request, res: Response) => {
+        console.log('da vao addPost')
+        console.log(req.body,req.files)
+
         const author = req["decode"].idUser
         let post = req.body
-        let imageData = post.image;
-        let lastPost = await this.postService.addPostByUser(post, author);
+        let imageData = req.files as any[] // sau khi biet chac chan no la gi
+
+        let imageArray = imageData.map(item=>  //map se tra ve 1 mang
+            item.path
+        )
+
         try {
-            await ImageService.addImage(lastPost.id, imageData)
-            if (!req.body.title) {
-                res.status(400).json({
-                    message: 'title missing'
-                })
-                res.end();
-            } else {
-                res.status(201).json({
-                    message: 'OK'
-                })
-            }
+            let lastPost = await this.postService.addPostByUser(post, author);
+            await ImageService.addImage(lastPost.id, imageArray)
+                res.status(201).json(lastPost)
+
         } catch (e) {
             console.log("error add post", e)
             res.status(500).json({
@@ -112,15 +125,14 @@ class PostControllers {
     }
 
     removePost = async (req: Request, res: Response) => {
+        console.log('da vao removePost ')
         let id = req.params.id;
         try {
             await this.commentService.deleteComment(id)
             await this.likeService.deleteAllByPostId(id)
             await this.imageService.deleteAllImageByPostId(id)
             await this.postService.deletePost(id);
-            res.status(200).json({
-                message: 'Delete success'
-            })
+            res.status(200).json(id)
         } catch (e) {
             console.log("error edit post", e)
             res.status(500).json({

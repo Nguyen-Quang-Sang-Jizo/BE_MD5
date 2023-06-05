@@ -12,7 +12,7 @@ export class Post {
     @PrimaryGeneratedColumn({type: 'int'})
     id: number;
 
-    @Column({type: 'varchar'})
+    @Column({type: 'varchar',default: 'social network'})
     title: string;
 
     @Column({type: 'varchar'})

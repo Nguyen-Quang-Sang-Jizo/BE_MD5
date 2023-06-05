@@ -59,8 +59,6 @@ class PostService{
             title: post.title,
             content: post.content,
             status: post.status,
-            date_created: post.date_created,
-            date_updated: post.date_updated,
             category: post.category,
             author: author,
         }

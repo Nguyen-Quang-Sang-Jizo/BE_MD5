@@ -13,7 +13,6 @@ const imageService_2 = __importDefault(require("../service/imageService"));
 class PostControllers {
     constructor() {
         this.findAll = async (req, res) => {
-            console.log(292929229);
             try {
                 let listPosts = await postService_1.default.getAll();
                 const publicPosts = listPosts.filter(post => post.status === 'public');
@@ -25,7 +24,14 @@ class PostControllers {
                     return res.json(listPosts);
                 }
                 else {
-                    return res.json(data);
+                    const newData = data.map(post => {
+                        post.image = post.image.map(image => {
+                            image.imageURL = 'http://localhost:3001/' + image.imageURL;
+                            return image;
+                        });
+                        return post;
+                    });
+                    return res.json(newData);
                 }
             }
             catch (e) {
@@ -49,23 +55,16 @@ class PostControllers {
             }
         };
         this.addPost = async (req, res) => {
+            console.log('da vao addPost');
+            console.log(req.body, req.files);
             const author = req["decode"].idUser;
             let post = req.body;
-            let imageData = post.image;
-            let lastPost = await this.postService.addPostByUser(post, author);
+            let imageData = req.files;
+            let imageArray = imageData.map(item => item.path);
             try {
-                await imageService_1.default.addImage(lastPost.id, imageData);
-                if (!req.body.title) {
-                    res.status(400).json({
-                        message: 'title missing'
-                    });
-                    res.end();
-                }
-                else {
-                    res.status(201).json({
-                        message: 'OK'
-                    });
-                }
+                let lastPost = await this.postService.addPostByUser(post, author);
+                await imageService_1.default.addImage(lastPost.id, imageArray);
+                res.status(201).json(lastPost);
             }
             catch (e) {
                 console.log("error add post", e);
@@ -97,15 +96,14 @@ class PostControllers {
             }
         };
         this.removePost = async (req, res) => {
+            console.log('da vao removePost ');
             let id = req.params.id;
             try {
                 await this.commentService.deleteComment(id);
                 await this.likeService.deleteAllByPostId(id);
                 await this.imageService.deleteAllImageByPostId(id);
                 await this.postService.deletePost(id);
-                res.status(200).json({
-                    message: 'Delete success'
-                });
+                res.status(200).json(id);
             }
             catch (e) {
                 console.log("error edit post", e);

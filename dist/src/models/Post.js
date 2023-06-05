@@ -24,7 +24,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Post.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar' }),
+    (0, typeorm_1.Column)({ type: 'varchar', default: 'social network' }),
     __metadata("design:type", String)
 ], Post.prototype, "title", void 0);
 __decorate([

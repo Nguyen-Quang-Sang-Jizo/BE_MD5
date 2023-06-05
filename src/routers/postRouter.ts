@@ -4,10 +4,12 @@ import { auth } from "../middleware/auth";
 import { checkRole } from "../middleware/author";
 import { privatePost } from "../middleware/private";
 import { onlyDeleteOwnPost } from "../middleware/delete";
+import multer from 'multer'
+const upload  = multer({dest:'public/upload/'}) // Serving static files in Express
 
 const postRouter = Router();
 postRouter.get('/',auth, postControllers.findAll);
-postRouter.post('/',auth, postControllers.addPost);
+postRouter.post('/',auth, upload.array('image') , postControllers.addPost);
 postRouter.get('/my-list', auth, postControllers.findAllById);
 postRouter.put('/:id', auth,onlyDeleteOwnPost, postControllers.editPost);
 postRouter.delete('/:id', auth,onlyDeleteOwnPost, postControllers.removePost);

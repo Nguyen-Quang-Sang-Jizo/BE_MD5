@@ -7,6 +7,8 @@ import * as dotenv from "dotenv";
 import cors from "cors"
 import * as process from "process";
 
+import multer from 'multer'
+
 const PORT = 3001;
 const app = express();
 
@@ -17,6 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser(process.env.USER_CODE_SECRET))
 connectDB();
 app.use(cors());
+app.use('/public',express.static( 'public'));
 router(app);
 
 app.listen(PORT, () => {
